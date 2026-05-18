@@ -9,29 +9,29 @@ public class SelectionIndicator : MonoBehaviour
 {
     [SerializeField] private bool _showDebugLogs = false;
     private LineRenderer _lineRenderer;
-    private Tank _tank;
+    private ISelectable _selectable;
 
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        _tank = GetComponentInParent<Tank>();
+        _selectable = GetComponentInParent<ISelectable>();
         InitializeLineRenderer();
         _lineRenderer.enabled = false;
     }
 
     private void Start()
     {
-        _tank.OnSelected += HandleSelected;
+        _selectable.OnSelected += HandleSelected;
     }
 
     private void OnDestroy()
     {
-        _tank.OnSelected -= HandleSelected;
+        _selectable.OnSelected -= HandleSelected;
     }
 
     private void HandleSelected(bool isSelected)
     {
-        DebugLogger.Log(_showDebugLogs, $"SelectionIndicator: Tank '{_tank.name}' selection state changed to {isSelected}");
+        DebugLogger.Log(_showDebugLogs, $"SelectionIndicator: Tank '{((UnityEngine.Object)_selectable).name}' selection state changed to {isSelected}");
         _lineRenderer.enabled = isSelected;
     }
 

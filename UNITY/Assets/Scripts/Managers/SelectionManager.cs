@@ -27,21 +27,21 @@ public class SelectionManager : SingletonBehaviour<SelectionManager>
     public void RegisterFriendlyTank(ISelectable tank)
     {
         _allFriendlyTanks.Add(tank);
-        Tank tankMono = tank as Tank;
-        if (tankMono != null)
+        IDamageable damageable = tank as IDamageable;
+        if (damageable != null)
         {
             void handler() => RemoveFromSelection(tank);
             _deathHandlers[tank] = handler;                         
-            tankMono.OnTankDied += handler;             
+            damageable.OnDied += handler;             
         }
     }
     public void UnregisterFriendlyTank(ISelectable tank)
     {
         _allFriendlyTanks.Remove(tank);
-        Tank tankMono = tank as Tank;
-        if (tankMono != null && _deathHandlers.TryGetValue(tank, out System.Action handler))
+        IDamageable damageable = tank as IDamageable;
+        if (damageable != null && _deathHandlers.TryGetValue(tank, out System.Action handler))
         {
-            tankMono.OnTankDied -= handler;
+            damageable.OnDied -= handler;
             _deathHandlers.Remove(tank);
         }
         RemoveFromSelection(tank);

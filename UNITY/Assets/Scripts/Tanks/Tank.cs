@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WarOfTanks.Navigation;
 using UnityEngine;
 
-public class Tank : MonoBehaviour, ISelectable, ICommandReceiver, ITankComponents
+public class Tank : MonoBehaviour, ISelectable, IDamageable, ICommandReceiver, ITankComponents
 {
     #region Fields
     [Header("Tank Settings")]
@@ -35,7 +35,7 @@ public class Tank : MonoBehaviour, ISelectable, ICommandReceiver, ITankComponent
     #endregion
 
     #region Events
-    public event Action OnTankDied;
+    public event Action OnDied;
     public event Action OnTankRespawned;
     public event Action<bool> OnSelected;
     #endregion
@@ -93,7 +93,7 @@ public class Tank : MonoBehaviour, ISelectable, ICommandReceiver, ITankComponent
         _tankBody.SetActive(false);
         _cannon.SetActive(false);
         _collider.enabled = false;
-        OnTankDied?.Invoke();
+        OnDied?.Invoke();
         StartCoroutine(RespawnCoroutine());
     }
 

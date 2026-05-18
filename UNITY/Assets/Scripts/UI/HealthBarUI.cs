@@ -22,7 +22,7 @@ public class HealthBarUI : MonoBehaviour
         _healthSystem.OnHealthChanged += UpdateHealthFillImage;
         _healthFillImage.fillAmount = _healthSystem.HealthPercentage;
 
-        _tank.OnTankDied += DisableCanvas;
+        _tank.OnDied += DisableCanvas;
         _tank.OnTankRespawned += EnableCanvas;
     }
 
@@ -34,7 +34,7 @@ public class HealthBarUI : MonoBehaviour
         }
        if (_tank != null)
        {
-            _tank.OnTankDied -= DisableCanvas;
+            _tank.OnDied -= DisableCanvas;
             _tank.OnTankRespawned -= EnableCanvas;
         }
     }

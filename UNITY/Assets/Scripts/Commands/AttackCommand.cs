@@ -11,6 +11,7 @@ public class AttackCommand : ICommand
 {
     private ITankComponents _tank;
     private ISelectable _target;
+    private IDamageable _damageable;
     private List<Vector2> _path;
     private int _waypointIndex;
     private Vector2 _lastTargetPos;
@@ -24,6 +25,7 @@ public class AttackCommand : ICommand
     {
         _tank = tank;
         _target = target;
+        _damageable = target as IDamageable;
     }
 
     /// <summary>
@@ -46,8 +48,7 @@ public class AttackCommand : ICommand
     {
         // Death check must precede any call on _target to avoid MissingReferenceException
         // if the target MonoBehaviour was destroyed earlier in the same frame.
-        Tank targetTank = _target as Tank;
-        if (targetTank != null && !targetTank.IsAlive)
+        if (_damageable != null && !_damageable.IsAlive)
         {
             _isComplete = true;
             Cancel();
