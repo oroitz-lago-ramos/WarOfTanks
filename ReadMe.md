@@ -77,6 +77,7 @@ npm run dev
 - ✅ [#16](https://github.com/oussema-fatnassi/WarOfTanks/issues/16) Local Obstacle Avoidance — CircleCast block detection, dynamic HashSet-based path recalculation, anti-oscillation rolling window
 - ✅ [#25](https://github.com/oussema-fatnassi/WarOfTanks/issues/25) | Player Model & Auth Routes (Register + Login)
 - ✅ [#54](https://github.com/oussama-fatnassi/WarOfTanks/issues/54) | MongoDB Database Initialization — Collections, Indexes & Seed Data
+- ✅ [#51](https://github.com/oussema-fatnassi/WarOfTanks/issues/51) Frontend App Structure — React Router v6, Axios client with JWT interceptors, TypeScript types, protected routes
 
 ## In Progress / Remaining
 
@@ -85,7 +86,6 @@ npm run dev
 | # | Title | Owner | Priority | Status |
 |---|---|---|---|---|
 | [#10](https://github.com/oussema-fatnassi/WarOfTanks/issues/10) | Player Controls - Selection & Commands | Oroitz | Critical | In Progress |
-| [#51](https://github.com/oussema-fatnassi/WarOfTanks/issues/51) | Frontend App Structure — Routing, Axios Client, Types, Pages | Oussema | Critical | Not started |
 
 ### Sprint 3 — Navigation & Backend Foundation (Apr 20 – Apr 26)
 
@@ -95,7 +95,7 @@ npm run dev
 | [#18](https://github.com/oussema-fatnassi/WarOfTanks/issues/18) | Gameplay & Win Conditions - Teams, Score, Timer, Menu | Oroitz | High | Not started |
 | [#26](https://github.com/oussema-fatnassi/WarOfTanks/issues/26) | JWT Auth Middleware & Refresh Token Route | Kamelia | Critical | Not started |
 
-### Sprint 4 — AI Systems & Backend Routes (Apr 27 – May 3)
+### Sprint 4 — AI Systems & Backend Routes (May 18 – May 24)
 
 | # | Title | Owner | Priority | Status |
 |---|---|---|---|---|
@@ -108,7 +108,7 @@ npm run dev
 | [#28](https://github.com/oussema-fatnassi/WarOfTanks/issues/28) | Backend Unit Tests & CI Integration | Kamelia | High | Not started |
 | [#30](https://github.com/oussema-fatnassi/WarOfTanks/issues/30) | Auth Pages (Register + Login) | Oussema | High | Not started |
 
-### Sprint 5 — Integration & Delivery (May 4 – May 10)
+### Sprint 5 — Integration & Delivery (May 25 – May 31)
 
 | # | Title | Owner | Priority | Status |
 |---|---|---|---|---|

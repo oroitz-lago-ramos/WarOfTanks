@@ -39,17 +39,20 @@ Both lint and format checks run automatically on every PR to `dev` via GitHub Ac
 FRONTEND/
 ├── public/           # Static assets (favicon, icons)
 ├── src/
+│   ├── api/          # Axios client with JWT interceptors
 │   ├── assets/       # Images and SVGs
+│   ├── auth/         # tokenStore — module-level token ref for interceptor
+│   ├── components/   # Reusable UI components (ProtectedRoute)
+│   ├── context/      # AuthContext + AuthProvider
+│   ├── hooks/        # Custom React hooks (useAuth)
 │   ├── pages/        # One file per route
-│   ├── components/   # Reusable UI components
-│   ├── services/     # API calls to Go backend
-│   ├── hooks/        # Custom React hooks (e.g. useAuth)
+│   ├── types/        # Shared TypeScript interfaces (Player, Match, AuthTokens)
 │   ├── App.tsx       # Root component and routing
 │   └── main.tsx      # Entry point
-├── .prettierrc       # Prettier config (Tailwind plugin included)
+├── .env.example      # Environment variable template
 ├── eslint.config.js  # ESLint config (TypeScript + React)
-├── vite.config.ts    # Vite config with Tailwind plugin
-└── tsconfig.app.json # TypeScript config
+├── vite.config.ts    # Vite config
+└── tsconfig.app.json # TypeScript config (strict mode enabled)
 ```
 
 ## Pages
@@ -67,7 +70,8 @@ FRONTEND/
 
 | #                                                               | Title                                              | Status      |
 | --------------------------------------------------------------- | -------------------------------------------------- | ----------- |
-| [#29](https://github.com/oussema-fatnassi/WarOfTanks/issues/29) | Frontend Project Setup (Vite + React + TypeScript) | In progress |
+| [#29](https://github.com/oussema-fatnassi/WarOfTanks/issues/29) | Frontend Project Setup (Vite + React + TypeScript) | ✅ Done     |
+| [#51](https://github.com/oussema-fatnassi/WarOfTanks/issues/51) | Frontend App Structure — Routing, Axios Client, Types, Pages | ✅ Done |
 | [#30](https://github.com/oussema-fatnassi/WarOfTanks/issues/30) | Auth Pages (Register + Login)                      | Not started |
 | [#31](https://github.com/oussema-fatnassi/WarOfTanks/issues/31) | Leaderboard, Stats & Match History Pages           | Not started |
 | [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                                   | Not started |
