@@ -66,6 +66,7 @@ npm run dev
 ### Sprint 2 — Core Gameplay
 - ✅ [#8](https://github.com/oussema-fatnassi/WarOfTanks/issues/8) Tank Prefab - Movement, Cannon, HP, Respawn — physics movement, independent turret, damage falloff, health bar, death/respawn cycle
 - ✅ [#9](https://github.com/oussema-fatnassi/WarOfTanks/issues/9) Environment - Tilemaps Setup — 6 layers, collision matrix, symmetric map painted
+- ✅ [#10](https://github.com/oussema-fatnassi/WarOfTanks/issues/10) Player Controls - Selection & Commands — single-click, shift-click, box drag-select; Move/Attack/AttackZone/Stop commands; Command Pattern + A* navigation integration, blocked-cell avoidance, `IDamageable` interface
 - ✅ [#11](https://github.com/oussema-fatnassi/WarOfTanks/issues/11) RTS Camera
 - ✅ [#12](https://github.com/oussema-fatnassi/WarOfTanks/issues/12) Generic State Machine System
 - ✅ [#29](https://github.com/oussema-fatnassi/WarOfTanks/issues/29) Frontend Project Setup — Vite + React + TypeScript scaffolded
@@ -80,12 +81,6 @@ npm run dev
 - ✅ [#51](https://github.com/oussema-fatnassi/WarOfTanks/issues/51) Frontend App Structure — React Router v6, Axios client with JWT interceptors, TypeScript types, protected routes
 
 ## In Progress / Remaining
-
-### Sprint 2 — Core Gameplay (Apr 13 – Apr 19)
-
-| # | Title | Owner | Priority | Status |
-|---|---|---|---|---|
-| [#10](https://github.com/oussema-fatnassi/WarOfTanks/issues/10) | Player Controls - Selection & Commands | Oroitz | Critical | In Progress |
 
 ### Sprint 3 — Navigation & Backend Foundation (Apr 20 – Apr 26)
 
