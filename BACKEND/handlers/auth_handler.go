@@ -150,7 +150,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		}}},
 	)
 
-	h.setRefreshCookie(c, refreshToken, int((7*24*time.Hour).Seconds()))
+	h.setRefreshCookie(c, refreshToken, int((7 * 24 * time.Hour).Seconds()))
 
 	c.JSON(http.StatusOK, gin.H{
 		"accessToken": accessToken,
