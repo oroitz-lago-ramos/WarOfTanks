@@ -1,9 +1,9 @@
-let _accessToken: string | null = null;
+let _accessToken: string | null = null
 
 export const setAccessToken = (token: string | null) => {
-    _accessToken = token;
-};
+  _accessToken = token
+}
 
 export const getAccessToken = () => {
-    return _accessToken;
-};
+  return _accessToken
+}

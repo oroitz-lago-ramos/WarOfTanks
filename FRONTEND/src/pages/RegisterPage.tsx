@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const RegisterPage: React.FC = () => {
-    return <div>RegisterPage</div>;
-};
+  return <div>RegisterPage</div>
+}
 
-export default RegisterPage;
+export default RegisterPage

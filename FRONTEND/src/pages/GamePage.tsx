@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const GamePage: React.FC = () => {
-    return <div>GamePage</div>;
-};
+  return <div>GamePage</div>
+}
 
-export default GamePage;
+export default GamePage
