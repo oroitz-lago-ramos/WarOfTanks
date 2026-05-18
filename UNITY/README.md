@@ -20,13 +20,20 @@
 ```
 UNITY/
 └── Assets/
-    ├── Scenes/         # Game scenes (FinalScene, Tilemaps)
-    ├── Scripts/        # C# game scripts
-    ├── Prefabs/        # Tank and environment prefabs
-    ├── Sprites/        # Sprite assets (Square, Circle)
-    └── Tilemaps/       # Tile assets and palettes
-        ├── Palettes/   # Tile palette prefabs
-        └── Tiles/      # Flat-color placeholder tile assets
+    ├── Scenes/
+    │   └── FeaturesTesting/   # Per-issue test scenes
+    ├── Scripts/
+    │   ├── Commands/          # ICommand implementations (Move, Attack, AttackZone, Stop)
+    │   ├── Inputs/            # PlayerInputHandler (Unity Input System)
+    │   ├── Interfaces/        # ICommand, ICommandReceiver, ISelectable, ITankComponents, IDamageable
+    │   ├── Managers/          # SelectionManager singleton
+    │   ├── Navigation/        # NavigationStrategy, AStarStrategy, StraightLineStrategy
+    │   ├── Tanks/             # Tank, TankController, TurretController, SelectionIndicator, TankConstants
+    │   ├── Tools/             # SingletonBehaviour<T>
+    │   └── UI/                # SelectionBox, HealthBarUI
+    ├── Prefabs/               # Tank, GameManager, UI, Zone prefabs
+    ├── Sprites/               # Sprite assets
+    └── Tilemaps/              # Tile assets and palettes
 ```
 
 ## Key Systems
@@ -36,7 +43,7 @@ UNITY/
 | Unity Project Base Setup | [#4](https://github.com/oussema-fatnassi/WarOfTanks/issues/4) | ✅ Done |
 | Tank Prefab - Movement, Cannon, HP, Respawn | [#8](https://github.com/oussema-fatnassi/WarOfTanks/issues/8) | ✅ Done |
 | Environment - Tilemaps Setup | [#9](https://github.com/oussema-fatnassi/WarOfTanks/issues/9) | ✅ Done |
-| Player Controls - Selection & Commands | [#10](https://github.com/oussema-fatnassi/WarOfTanks/issues/10) | In Progress |
+| Player Controls - Selection & Commands | [#10](https://github.com/oussema-fatnassi/WarOfTanks/issues/10) | ✅ Done |
 | RTS Camera | [#11](https://github.com/oussema-fatnassi/WarOfTanks/issues/11) | ✅ Done |
 | Generic State Machine System | [#12](https://github.com/oussema-fatnassi/WarOfTanks/issues/12) | ✅ Done |
 | Navigation - A* Pathfinding | [#13](https://github.com/oussema-fatnassi/WarOfTanks/issues/13) | ✅ Done |
