@@ -1,0 +1,27 @@
+using System;
+
+public class MatchTimer
+{
+    private float _duration;
+    private float _elapsed;
+    private bool _running = false;
+
+    public bool IsTimeUp => _elapsed >= _duration;
+    public float RemainingTime => Math.Max(_duration - _elapsed,0);
+    
+    public MatchTimer(float duration)
+    {
+        _duration = duration;
+        _elapsed = 0;
+    }
+
+    public void Tick(float deltaTime)
+    {
+        if (!_running) return;
+        _elapsed += deltaTime;
+    }
+
+    public void StartTimer() { _running = true; }
+    public void PauseTimer() { _running = false; }
+    public void ResetTimer() { _elapsed = 0; _running = false; }
+}
