@@ -1,19 +1,19 @@
-using WarOfTanks.Enums;
-using WarOfTanks.Interfaces;
-
 namespace WarOfTanks.AI.BehaviourTree
 {
+    /// <summary>Decorator that repeats its child a fixed number of times or forever.</summary>
     public class Repeater : DecoratorNode
     {
         private readonly int _repeatCount;
         private int _currentCount;
 
+        /// <summary>Creates a repeater; use a negative repeat count for infinite repetition.</summary>
         public Repeater(IBehaviourNode child, int repeatCount) : base(child)
         {
             _repeatCount = repeatCount;
             _currentCount = 0;
         }
 
+        /// <summary>Ticks the child until the configured repeat count is reached.</summary>
         public override NodeStatus Tick()
         {
             if (_repeatCount == 0)
@@ -21,7 +21,7 @@ namespace WarOfTanks.AI.BehaviourTree
                 return NodeStatus.Success;
             }
 
-            var status = child.Tick();
+            var status = _child.Tick();
 
             if (status == NodeStatus.Running)
             {
