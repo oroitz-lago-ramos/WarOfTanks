@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using WarOfTanks.StateMachine;
 using UnityEngine;
-
-public class PausedState : MonoBehaviour
+public class PausedState : State<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public PausedState(StateMachine<GameManager> machine) : base(machine) { }
+
+    protected override void Enter()
     {
-        
+        Context.PauseMatch();
+        Context.SetPauseUI(true);
+    }
+    protected override void Execute()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Machine.ChangeState(new PlayingState(Machine));
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Exit()
     {
-        
+        Context.SetPauseUI(false);
     }
 }

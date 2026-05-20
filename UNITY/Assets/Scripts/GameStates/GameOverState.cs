@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using WarOfTanks.StateMachine;
 using UnityEngine;
 
-public class GameOverState : MonoBehaviour
+public class GameOverState : State<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameOverState(StateMachine<GameManager> machine) : base(machine) {}
+    protected override void Enter()
     {
-        
+        Context.EndMatch();
+        Context.ShowGameOver
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected override void Exit() { }
 }
+
