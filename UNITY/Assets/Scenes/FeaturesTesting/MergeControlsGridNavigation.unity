@@ -11401,6 +11401,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 797621245}
     - target: {fileID: 1478194857, guid: 4a06f081ab8d3ac4198c232eb5e12d31, type: 3}
+      propertyPath: _matchDuration
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478194857, guid: 4a06f081ab8d3ac4198c232eb5e12d31, type: 3}
       propertyPath: _gameOverScreen
       value: 
       objectReference: {fileID: 1258859467}
