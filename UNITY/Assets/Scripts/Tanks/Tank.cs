@@ -50,6 +50,7 @@ public class Tank : MonoBehaviour, ISelectable, IDamageable, ICommandReceiver, I
     public NavigationStrategy Navigation => _navigationStrategy;
     public float FiringRange => _firingRange;
     public ICommand CurrentCommand => _currentCommand;
+    public Vector3 SpawnPosition => _spawnPoint.position;
     #endregion
 
     #region Unity Methods
@@ -65,13 +66,14 @@ public class Tank : MonoBehaviour, ISelectable, IDamageable, ICommandReceiver, I
     private void Start()
     {
         _healthSystem.OnDeath += Die;
+        GameManager.Instance?.RegisterTank(this);
+
         if (SelectionManager.Instance == null)
         { 
             Debug.LogWarning("No SelectionManager found in the scene. Please add one to manage tank selection.");
             return;
         }
         if (!IsEnemy()) SelectionManager.Instance?.RegisterFriendlyTank(this);
-        GameManager.Instance?.RegisterTank(this);
     }
 
     private void OnDestroy()

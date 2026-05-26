@@ -143,7 +143,7 @@ namespace WarOfTanks.Zone
             var tank = other.GetComponentInParent<Tank>();
             if (tank == null) return;
 
-            if (tank.TeamId == 0)
+            if (tank.TeamId == ETankTeam.PLAYER)
             {
                 _teamPlayerTanksInZone.Remove(other.gameObject);
                 if (_teamPlayerTanksInZone.Count == 0) contestedBy.Remove(0);
