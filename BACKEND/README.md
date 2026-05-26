@@ -22,6 +22,7 @@ The API will be available at `http://localhost:8080`.
 | `MONGO_URI`  | MongoDB connection string         |
 | `JWT_SECRET` | Secret key for signing JWT tokens |
 | `PORT`       | Server port (default: 8080)       |
+| `FRONTEND_ORIGIN` | Frontend URL allowed by CORS, defaults to `http://localhost:5173` |
 
 Create a `.env` file in `BACKEND/` with these values before running.
 
