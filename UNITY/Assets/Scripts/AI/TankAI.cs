@@ -38,6 +38,9 @@ namespace WarOfTanks.AI
         [SerializeField] private int _maxRecalculations = 3;
         [SerializeField] private float _recalcWindowDuration = 2f;
 
+        [Header("Pathfinding")]
+        [SerializeField] private EPathfinderType _pathfinderType = EPathfinderType.ASTAR;
+
         [Header("Debug")]
         [SerializeField] private bool _showDebugLogs = false;
         private int _recalcCount;
@@ -101,7 +104,10 @@ namespace WarOfTanks.AI
                 DebugLogger.LogWarning($"{nameof(TankAI)}: _tankLayerMask is not set. Block detection will not work.", this);
             }
 
-            _navigator = PathfinderFactory.Create(EPathfinderType.ASTAR, _grid);
+            _navigator = PathfinderFactory.Create(_pathfinderType, _grid);
+
+            if (_navigator is FlowFieldPathfinder flowField)
+                _grid.RegisterFlowFieldForDebug(flowField);
         }
 
         private void Start()

@@ -18,6 +18,10 @@ namespace WarOfTanks.Navigation
         [SerializeField, Range(0.1f, 1f)] private float _cellCheckRadiusMultiplier = 0.45f;
         [SerializeField] private bool _showGizmos;
         private PathNode[,] _nodes;
+        private FlowFieldPathfinder _debugFlowField;
+
+        public int Width => _width;
+        public int Height => _height;
 
         private void Awake()
         {
@@ -150,6 +154,8 @@ namespace WarOfTanks.Navigation
             return x >= 0 && x < _width && y >= 0 && y < _height;
         }
 
+        public void RegisterFlowFieldForDebug(FlowFieldPathfinder ff) => _debugFlowField = ff;
+
         /// <summary>Iterates over all nodes in the grid.</summary>
         public IEnumerable<PathNode> GetAllNodes()
         {
@@ -171,6 +177,27 @@ namespace WarOfTanks.Navigation
                     Gizmos.color = !node.IsWalkable ? Color.red : node.IsHazard ? Color.yellow : Color.green;
                     Vector3 worldPosition = GridToWorldPosition(node.GridPosition);
                     Gizmos.DrawCube(worldPosition, Vector3.one * (_cellSize - 0.1f));
+                }
+            }
+
+            if (_debugFlowField == null) return;
+
+            Gizmos.color = Color.cyan;
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    Vector2 dir = _debugFlowField.GetDirectionAtGridPos(x, y);
+                    if (dir == Vector2.zero) continue;
+
+                    Vector3 center = GridToWorldPosition(new Vector2Int(x, y));
+                    Vector3 tip = center + new Vector3(dir.x, dir.y, 0f) * (_cellSize * 0.4f);
+                    Gizmos.DrawLine(center, tip);
+
+                    Vector3 right = Quaternion.Euler(0f, 0f, 135f) * new Vector3(dir.x, dir.y, 0f) * (_cellSize * 0.15f);
+                    Vector3 left  = Quaternion.Euler(0f, 0f, -135f) * new Vector3(dir.x, dir.y, 0f) * (_cellSize * 0.15f);
+                    Gizmos.DrawLine(tip, tip + right);
+                    Gizmos.DrawLine(tip, tip + left);
                 }
             }
         #endif
