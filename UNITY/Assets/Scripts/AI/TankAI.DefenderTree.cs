@@ -7,6 +7,9 @@ namespace WarOfTanks.AI
 {
     public partial class TankAI
     {
+        /// <summary>
+        /// Builds the defender role tree: retreat when low, intercept threats, guard the zone, otherwise patrol.
+        /// </summary>
         private BehaviourTreeController BuildDefenderTree()
         {
             Selector root = new Selector(new List<IBehaviourNode>

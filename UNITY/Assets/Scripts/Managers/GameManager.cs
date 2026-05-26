@@ -6,6 +6,7 @@ using WarOfTanks.Zone;
 /// <summary>
 /// Singleton that owns the full match lifecycle: timer, scoring, team tracking, and state machine.
 /// Wires together Zone events and Tank death callbacks at scene start.
+/// Central game-level service that stores global debug settings and registered tanks.
 /// </summary>
 public class GameManager : SingletonBehaviour<GameManager>
 {
@@ -30,6 +31,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     // Guards against a double GameOver trigger if the zone fires a score on the same frame the timer expires.
     private bool _matchEnded;
 
+    /// <summary>
+    /// Initializes the singleton instance and applies debug logger settings.
+    /// </summary>
     protected override void Awake()
     {
         base.Awake();
@@ -65,16 +69,26 @@ public class GameManager : SingletonBehaviour<GameManager>
             _stateMachine.ChangeState(new GameOverState(_stateMachine));
         }
     }
+
+    /// <summary>
+    /// Applies debug settings when values change in the Inspector.
+    /// </summary>
     private void OnValidate()
     {
         ApplyDebugSettings();
     }
 
+    /// <summary>
+    /// Syncs the global debug logger state with the manager setting.
+    /// </summary>
     private void ApplyDebugSettings()
     {
         DebugLogger.IsEnabled = _enableLogs;
     }
 
+    /// <summary>
+    /// Adds a tank to the global registry if it is not already registered.
+    /// </summary>
     public void RegisterTank(Tank tank)
     {
         if(tank == null) return;
@@ -83,12 +97,18 @@ public class GameManager : SingletonBehaviour<GameManager>
         _allTanks.Add(tank);
     }
 
+    /// <summary>
+    /// Removes a tank from the global registry.
+    /// </summary>
     public void UnregisterTank(Tank tank)
     {
         if(tank == null) return;
         _allTanks.Remove(tank);
     }
 
+    /// <summary>
+    /// Returns a copy of the currently registered tanks.
+    /// </summary>
     public List<Tank> GetAllTanks()
     {
         return new List<Tank>(_allTanks);

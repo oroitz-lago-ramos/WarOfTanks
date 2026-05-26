@@ -171,9 +171,16 @@ namespace WarOfTanks.AI
             }
         }
 
+        /// <summary>Current path being followed by the tank.</summary>
         public List<PathNode> CurrentPath => _currentPath;
+
+        /// <summary>Index of the next node in the current path.</summary>
         public int CurrentPathIndex => _currentPathIndex;
+
+        /// <summary>Distance used for forward tank block detection.</summary>
         public float DetectionRange => _detectionRange;
+
+        /// <summary>Radius used for tank block detection casts.</summary>
         public float TankRadius => _tankRadius;
 
         /// <summary>
@@ -332,6 +339,9 @@ namespace WarOfTanks.AI
             _tankController.Stop();
         }
 
+        /// <summary>
+        /// Returns whether the tank has reached the current grid target.
+        /// </summary>
         private bool IsAtDestination()
         {
             if (_grid == null)
@@ -341,6 +351,9 @@ namespace WarOfTanks.AI
                 && (_currentPath == null || _currentPath.Count == 0);
         }
 
+        /// <summary>
+        /// Returns whether the tank is currently inside or close to the capture zone.
+        /// </summary>
         private bool IsInZone()
         {
             if (_zone == null)
@@ -355,6 +368,9 @@ namespace WarOfTanks.AI
             return Vector2.Distance(transform.position, _zone.transform.position) < 1f;
         }
 
+        /// <summary>
+        /// Returns whether the tank already has an active path to the requested target.
+        /// </summary>
         private bool IsAlreadyMovingTo(Vector2Int target)
         {
             return target == _currentTargetGridPosition
@@ -362,6 +378,9 @@ namespace WarOfTanks.AI
                 && _currentPath.Count > 0;
         }
 
+        /// <summary>
+        /// Refreshes the blackboard and ticks the behaviour tree on the configured interval.
+        /// </summary>
         private void TickBehaviourTree()
         {
             if (_behaviourTree == null || _blackboard == null)
@@ -377,6 +396,9 @@ namespace WarOfTanks.AI
             _behaviourTree.Tick();
         }
 
+        /// <summary>
+        /// Creates the behaviour tree that matches the configured tank role.
+        /// </summary>
         private BehaviourTreeController BuildBehaviourTree()
         {
             switch (_role)
@@ -392,6 +414,9 @@ namespace WarOfTanks.AI
             }
         }
 
+        /// <summary>
+        /// Creates a no-op behaviour tree used as a safe fallback.
+        /// </summary>
         private BehaviourTreeController BuildIdleTree()
         {
             return new BehaviourTreeController(new ActionNode(() => NodeStatus.Success));

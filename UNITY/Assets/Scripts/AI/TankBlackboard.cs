@@ -10,12 +10,25 @@ namespace WarOfTanks.AI
     /// </summary>
     public class TankBlackboard
     {
+        /// <summary>Tank controlled by this AI.</summary>
         public Tank self;
+
+        /// <summary>Team of the controlled tank.</summary>
         public ETankTeam teamId;
+
+        /// <summary>Opposing team of the controlled tank.</summary>
         public ETankTeam enemyTeamId;
+
+        /// <summary>Current visible enemy detection results.</summary>
         public List<DetectionResult> enemyResults = new List<DetectionResult>();
+
+        /// <summary>Closest currently visible enemy.</summary>
         public DetectionResult closestEnemy;
+
+        /// <summary>Capture zone observed by the AI.</summary>
         public ZoneController zone;
+
+        /// <summary>Current health ratio of the controlled tank.</summary>
         public float hpRatio;
 
         private HealthSystem _healthSystem;
@@ -57,11 +70,17 @@ namespace WarOfTanks.AI
             closestEnemy = vision.GetClosestTarget(enemyResults);
         }
 
+        /// <summary>
+        /// Returns the cached health percentage for the controlled tank.
+        /// </summary>
         private float GetHealthRatio()
         {
             return _healthSystem != null ? _healthSystem.HealthPercentage : 0f;
         }
 
+        /// <summary>
+        /// Removes invalid, dead, or friendly detection results.
+        /// </summary>
         private List<DetectionResult> FilterValidEnemies(List<DetectionResult> results)
         {
             List<DetectionResult> validEnemies = new List<DetectionResult>();
@@ -78,12 +97,18 @@ namespace WarOfTanks.AI
             return validEnemies;
         }
 
+        /// <summary>
+        /// Clears target data when vision input is unavailable.
+        /// </summary>
         private void ClearDetectionData()
         {
             enemyResults = new List<DetectionResult>();
             closestEnemy = null;
         }
 
+        /// <summary>
+        /// Returns the opposing team for the given team id.
+        /// </summary>
         private ETankTeam GetEnemyTeam(ETankTeam teamId)
         {
             return teamId == ETankTeam.PLAYER ? ETankTeam.ENEMY : ETankTeam.PLAYER;

@@ -7,6 +7,12 @@ namespace WarOfTanks.AI
 {
     public partial class TankAI
     {
+        /// <summary>
+        /// Moves the tank toward the capture zone center.
+        /// Returns <see cref="NodeStatus.Success"/> once the tank is inside the zone,
+        /// <see cref="NodeStatus.Running"/> while pathing, and
+        /// <see cref="NodeStatus.Failure"/> when the zone or navigation grid is missing.
+        /// </summary>
         private NodeStatus MoveToZone()
         {
             if (_zone == null || _grid == null) 
@@ -26,6 +32,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Retreats the tank to its spawn point and restores health when it arrives.
+        /// Returns success after the spawn grid is reached so the role tree can resume
+        /// normal behaviour on the next tick.
+        /// </summary>
         private NodeStatus MoveToSpawn()
         {
             if (_tank == null || _grid == null) 
@@ -48,6 +59,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Moves the tank toward the closest visible enemy until it is inside firing range.
+        /// Returns success when the target is close enough for the next sequence node
+        /// to run <see cref="AttackClosestEnemy"/>.
+        /// </summary>
         private NodeStatus MoveToFiringRange()
         {
             if (_blackboard == null || _blackboard.closestEnemy == null || _blackboard.closestEnemy.target == null || _grid == null || _tank == null)
@@ -69,6 +85,10 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Moves the tank to a team-specific perimeter point near the capture zone.
+        /// The offset keeps defenders from stacking on the same center cell as captors.
+        /// </summary>
         private NodeStatus MoveToZonePerimeter()
         {
             if (_zone == null || _grid == null || _blackboard == null)
@@ -92,6 +112,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Moves the tank toward the closest visible enemy so it can intercept and attack.
+        /// Returns success when the tank reaches firing range, allowing the defender
+        /// sequence to continue into <see cref="AttackClosestEnemy"/>.
+        /// </summary>
         private NodeStatus MoveToIntercept()
         {
             if (_blackboard == null || _blackboard.closestEnemy == null || _blackboard.closestEnemy.target == null || _grid == null || _tank == null )
@@ -111,6 +136,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Patrols toward the spawn point of an enemy tank.
+        /// This gives attackers useful movement while the vision system stub returns
+        /// no visible targets.
+        /// </summary>
         private NodeStatus PatrolToEnemySpawn()
         {
             if (_blackboard == null || _grid == null || _tank == null || GameManager.Instance == null)
@@ -147,6 +177,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Patrols between the capture zone perimeter and the tank spawn point.
+        /// This is the defender fallback when there is no visible threat and no
+        /// higher-priority zone action is active.
+        /// </summary>
         private NodeStatus PatrolZoneToSpawn()
         {
             if (_blackboard == null || _tank == null || _grid == null || _zone == null)
@@ -173,6 +208,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Running;
         }
 
+        /// <summary>
+        /// Rotates the turret toward the closest visible enemy and fires when aimed and ready.
+        /// The tank body keeps following its current path; this action only controls
+        /// turret rotation and firing.
+        /// </summary>
         private NodeStatus AttackClosestEnemy()
         {
             if (_blackboard == null || _blackboard.closestEnemy == null || _blackboard.closestEnemy.target == null || _tank == null || _tank.Turret == null)
@@ -191,6 +231,11 @@ namespace WarOfTanks.AI
             return NodeStatus.Success;
         }
 
+        /// <summary>
+        /// Placeholder action for future commander signalling when an enemy is visible.
+        /// Returns running so the captor keeps the signal branch active until the
+        /// commander AI is implemented.
+        /// </summary>
         private NodeStatus SignalEnemyVisible()
         {
             return NodeStatus.Running;

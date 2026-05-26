@@ -6,6 +6,9 @@ namespace WarOfTanks.AI
 {
     public partial class TankAI
     {
+        /// <summary>
+        /// Builds the attacker role tree: retreat when low, pursue visible enemies, otherwise patrol enemy spawn.
+        /// </summary>
         private BehaviourTreeController BuildAttackerTree()
         {
             Selector root = new Selector(new List<IBehaviourNode>
