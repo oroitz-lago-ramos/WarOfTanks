@@ -1,6 +1,7 @@
 interface Player {
   id: string
   username: string
+  email: string
   totalMatches: number
   wins: number
   losses: number
