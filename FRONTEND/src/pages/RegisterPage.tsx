@@ -19,8 +19,8 @@ interface RegisterErrors {
   form?: string
 }
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,20}$/
 
 const RegisterPage = () => {
   const navigate = useNavigate()
@@ -44,11 +44,11 @@ const RegisterPage = () => {
     const trimmedUsername = username.trim()
     const trimmedEmail = email.trim()
 
-    if (!usernamePattern.test(trimmedUsername)) {
+    if (!USERNAME_PATTERN.test(trimmedUsername)) {
       nextErrors.username = 'Use 3-20 letters, numbers, or underscores'
     }
 
-    if (!emailPattern.test(trimmedEmail)) {
+    if (!EMAIL_PATTERN.test(trimmedEmail)) {
       nextErrors.email = 'Enter a valid email address'
     }
 
