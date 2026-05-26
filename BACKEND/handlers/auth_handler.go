@@ -3,6 +3,7 @@ package handlers
 import (
 	"errors"
 	"net/http"
+	"net/mail"
 	"os"
 	"regexp"
 	"time"
@@ -33,6 +34,7 @@ func NewAuthHandler(db *mongo.Database, jwtSvc *services.JWTService) *AuthHandle
 // RegisterRequest is the expected body for POST /auth/register.
 type RegisterRequest struct {
 	Username string `json:"username" binding:"required"`
+	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
@@ -47,13 +49,19 @@ type LoginRequest struct {
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "username and password are required"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "username, email and password are required"})
 		return
 	}
 
 	// Validate username
 	if !usernameRegex.MatchString(req.Username) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "username must be 3–20 characters (letters, digits, underscore only)"})
+		return
+	}
+
+	// Validate email
+	if _, err := mail.ParseAddress(req.Email); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "email must be valid"})
 		return
 	}
 
@@ -88,7 +96,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 	player := models.Player{
 		ID:           bson.NewObjectID(),
 		Username:     req.Username,
-		Email:        "", // not required at registration in this task
+		Email:        req.Email,
 		PasswordHash: string(hash),
 		Stats:        models.PlayerStats{},
 		CreatedAt:    now,
@@ -103,6 +111,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{
 		"id":       player.ID.Hex(),
 		"username": player.Username,
+		"email":    player.Email,
 	})
 }
 

@@ -55,6 +55,7 @@ func main() {
 
 	// Initialize Gin router
 	r := gin.Default()
+	r.Use(middleware.CORS(cfg.FrontendOrigin))
 
 	// Route groups
 	api := r.Group("/api/v1")

@@ -14,6 +14,7 @@ type Config struct {
 	JWTSecret        string
 	JWTRefreshSecret string
 	Port             string
+	FrontendOrigin   string
 }
 
 // Load reads environment variables from .env file and returns a Config.
@@ -26,10 +27,15 @@ func Load() *Config {
 		JWTSecret:        os.Getenv("JWT_SECRET"),
 		JWTRefreshSecret: os.Getenv("JWT_REFRESH_SECRET"),
 		Port:             os.Getenv("PORT"),
+		FrontendOrigin:   os.Getenv("FRONTEND_ORIGIN"),
 	}
 
 	if cfg.MongoURI == "" || cfg.JWTSecret == "" || cfg.MongoDBName == "" {
 		log.Fatal("❌ Missing required environment variables")
+	}
+
+	if cfg.FrontendOrigin == "" {
+		cfg.FrontendOrigin = "http://localhost:5173"
 	}
 
 	return cfg

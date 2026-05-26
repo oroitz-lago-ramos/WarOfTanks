@@ -25,18 +25,28 @@ UNITY/
     ├── Scripts/
     │   ├── AI/
     │   │   ├── BehaviourTree/ # IBehaviourNode, NodeStatus, Selector, Sequence, Inverter, Repeater, ActionNode, ConditionNode, BehaviourTree
-    │   │   └── TankAI.cs      # MonoBehaviour AI controller (pathfinding, block detection)
+    │   │   ├── TankAI.cs              # Orchestrator — BT tick, pathfinding, obstacle avoidance (partial class)
+    │   │   ├── TankAI.Actions.cs      # 9 private action methods (MoveToZone, AttackClosestEnemy, etc.)
+    │   │   ├── TankAI.CaptorTree.cs   # Captor role behaviour tree
+    │   │   ├── TankAI.AttackerTree.cs # Attacker role behaviour tree
+    │   │   ├── TankAI.DefenderTree.cs # Defender role behaviour tree
+    │   │   ├── TankBlackboard.cs      # Shared data snapshot (HP, vision results, zone state)
+    │   │   ├── VisionSystem.cs        # Detection stub — real logic in #19
+    │   │   └── DetectionResult.cs     # Per-target detection data class
     │   ├── Commands/          # ICommand implementations (Move, Attack, AttackZone, Stop)
+    │   ├── Enums/             # ETankTeam, ETankRole, EPathfinderType
+    │   ├── GameStates/        # GameStateMachine, PlayingState, PausedState, GameOverState
     │   ├── Inputs/            # PlayerInputHandler (Unity Input System)
     │   ├── Interfaces/        # ICommand, ICommandReceiver, ISelectable, ITankComponents, IDamageable
-    │   ├── Managers/          # SelectionManager singleton
-    │   ├── Navigation/        # NavigationStrategy, AStarStrategy, StraightLineStrategy
+    │   ├── Managers/          # GameManager (tank registry, debug), SelectionManager, ScoreManager, MatchTimer, TeamManager
+    │   ├── Navigation/        # NavigationStrategy, AStarStrategy, FlowFieldStrategy, StraightLineStrategy
     │   ├── Tanks/             # Tank, TankController, TurretController, SelectionIndicator, TankConstants
-    │   ├── Tools/             # SingletonBehaviour<T>
-    │   └── UI/                # SelectionBox, HealthBarUI
+    │   ├── Tools/             # SingletonBehaviour<T>, DebugLogger
+    │   └── UI/                # SelectionBox, HealthBarUI, ZoneUIController, GameHUD, GameOverScreen, MainMenuController
     ├── Tests/
     │   └── BehaviourTreeTests.cs  # 14 unit tests (Unity Test Runner)
-    ├── Prefabs/               # Tank, GameManager, UI, Zone prefabs
+    ├── Prefabs/
+    │   └── Tanks/             # Tank.prefab (player), Enemy.prefab (AI — TankAI + VisionSystem)
     ├── Sprites/               # Sprite assets
     └── Tilemaps/              # Tile assets and palettes
 ```
@@ -60,7 +70,7 @@ UNITY/
 | Detection System - Field of View | [#19](https://github.com/oussema-fatnassi/WarOfTanks/issues/19) | Not started |
 | Fog of War (WebGL-Compatible) | [#20](https://github.com/oussema-fatnassi/WarOfTanks/issues/20) | Not started |
 | AI - Generic Behaviour Tree System | [#21](https://github.com/oussema-fatnassi/WarOfTanks/issues/21) | ✅ Done |
-| AI - Tank Behaviour Trees (Specializations) | [#22](https://github.com/oussema-fatnassi/WarOfTanks/issues/22) | Not started |
+| AI - Tank Behaviour Trees (Specializations) | [#22](https://github.com/oussema-fatnassi/WarOfTanks/issues/22) | ✅ Done |
 | Commander AI | [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) | Not started |
 | WebGL Build (GitHub Actions) | [#7](https://github.com/oussema-fatnassi/WarOfTanks/issues/7) | Not started |
 
@@ -71,6 +81,8 @@ UNITY/
 - State machine diagrams committed to `docs/state-machines/` — Zone Capture FSM and Game State FSM ([#3](https://github.com/oussema-fatnassi/WarOfTanks/issues/3) ✅)
 - Technology justification committed to `docs/technical-note/` ([#35](https://github.com/oussema-fatnassi/WarOfTanks/issues/35) — Figma mockups remaining)
 - Navigation uses a custom Physics2D LayerMask-based grid (not Unity NavMesh) — Grid, PathNode, and INavigable are modular and algorithm-agnostic
-- Behaviour Tree framework (`Assets/Scripts/AI/BehaviourTree/`) is pure C# with no MonoBehaviour dependencies — `TankAI` is the only Unity integration point
+- BT framework (`Assets/Scripts/AI/BehaviourTree/`) is pure C# with no MonoBehaviour dependencies — `TankAI` is the only Unity integration point
+- `TankAI` uses `partial class` split across 5 files — role-specific trees and action methods stay private without exposing TankAI internals
+- `VisionSystem` is currently a stub (returns empty results) — Oroitz fills in real raycast detection in [#19](https://github.com/oussema-fatnassi/WarOfTanks/issues/19) without touching any BT code
 - The AI + tank system must remain a self-contained modular prefab (championship requirement)
 - Naming conventions: see `docs/naming-conventions.md` in the root repo
