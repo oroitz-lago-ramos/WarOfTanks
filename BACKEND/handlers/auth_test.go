@@ -97,6 +97,7 @@ func TestRegister_Success(t *testing.T) {
 
 	w := post(r, "/api/v1/auth/register", map[string]string{
 		"username": "alice_01",
+		"email":    "alice@example.com",
 		"password": "securepass",
 	})
 
@@ -113,6 +114,9 @@ func TestRegister_Success(t *testing.T) {
 	if resp["id"] == "" {
 		t.Error("expected non-empty id")
 	}
+	if resp["email"] != "alice@example.com" {
+		t.Errorf("expected email alice@example.com, got %s", resp["email"])
+	}
 
 	// Verify password is hashed in DB
 	var stored models.Player
@@ -126,13 +130,16 @@ func TestRegister_Success(t *testing.T) {
 	if bcrypt.CompareHashAndPassword([]byte(stored.PasswordHash), []byte("securepass")) != nil {
 		t.Error("stored hash does not match plain password")
 	}
+	if stored.Email != "alice@example.com" {
+		t.Errorf("expected stored email alice@example.com, got %s", stored.Email)
+	}
 }
 
 func TestRegister_DuplicateUsername(t *testing.T) {
 	db := setupTestDB(t)
 	r := setupRouter(db)
 
-	body := map[string]string{"username": "bob", "password": "password123"}
+	body := map[string]string{"username": "bob", "email": "bob@example.com", "password": "password123"}
 	post(r, "/api/v1/auth/register", body) // first registration
 
 	w := post(r, "/api/v1/auth/register", body) // duplicate
@@ -147,10 +154,24 @@ func TestRegister_InvalidUsername(t *testing.T) {
 
 	cases := []string{"ab", "toolongusername1234567", "bad name!", "has-hyphen"}
 	for _, u := range cases {
-		w := post(r, "/api/v1/auth/register", map[string]string{"username": u, "password": "password123"})
+		w := post(r, "/api/v1/auth/register", map[string]string{"username": u, "email": "user@example.com", "password": "password123"})
 		if w.Code != http.StatusBadRequest {
 			t.Errorf("username %q: expected 400, got %d", u, w.Code)
 		}
+	}
+}
+
+func TestRegister_InvalidEmail(t *testing.T) {
+	db := setupTestDB(t)
+	r := setupRouter(db)
+
+	w := post(r, "/api/v1/auth/register", map[string]string{
+		"username": "validuser",
+		"email":    "invalid-email",
+		"password": "password123",
+	})
+	if w.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400, got %d: %s", w.Code, w.Body.String())
 	}
 }
 
@@ -160,6 +181,7 @@ func TestRegister_ShortPassword(t *testing.T) {
 
 	w := post(r, "/api/v1/auth/register", map[string]string{
 		"username": "validuser",
+		"email":    "valid@example.com",
 		"password": "short",
 	})
 	if w.Code != http.StatusBadRequest {

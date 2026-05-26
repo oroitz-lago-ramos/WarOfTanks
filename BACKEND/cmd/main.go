@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -53,6 +54,7 @@ func main() {
 
 	// Initialize Gin router
 	r := gin.Default()
+	r.Use(corsMiddleware(cfg.FrontendOrigin))
 
 	// Route groups
 	api := r.Group("/api/v1")
@@ -80,5 +82,29 @@ func main() {
 	log.Printf("🚀 Server running on port %s", cfg.Port)
 	if err := r.Run(":" + cfg.Port); err != nil {
 		log.Fatal("Server failed to start:", err)
+	}
+}
+
+func corsMiddleware(frontendOrigin string) gin.HandlerFunc {
+	allowedOrigins := map[string]bool{
+		frontendOrigin:          true,
+		"http://127.0.0.1:5173": true,
+	}
+
+	return func(c *gin.Context) {
+		origin := c.Request.Header.Get("Origin")
+		if allowedOrigins[origin] {
+			c.Header("Access-Control-Allow-Origin", origin)
+			c.Header("Access-Control-Allow-Credentials", "true")
+			c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+			c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
+		}
+
+		if c.Request.Method == http.MethodOptions {
+			c.AbortWithStatus(http.StatusNoContent)
+			return
+		}
+
+		c.Next()
 	}
 }
