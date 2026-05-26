@@ -153,7 +153,7 @@ func (h *MatchHandler) GetMatches(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "database error"})
 		return
 	}
-	defer cursor.Close(ctx)
+	defer func() { _ = cursor.Close(ctx) }()
 
 	var matches []models.Match
 	if err := cursor.All(ctx, &matches); err != nil {

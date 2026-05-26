@@ -49,9 +49,9 @@ func main() {
 	jwtSvc := services.NewJWTService(cfg.JWTSecret, cfg.JWTRefreshSecret)
 
 	// Initialize handlers
-	authHandler   := handlers.NewAuthHandler(db, jwtSvc)
+	authHandler := handlers.NewAuthHandler(db, jwtSvc)
 	playerHandler := handlers.NewPlayerHandler(db)
-	matchHandler  := handlers.NewMatchHandler(db, client)
+	matchHandler := handlers.NewMatchHandler(db, client)
 
 	// Initialize Gin router
 	r := gin.Default()

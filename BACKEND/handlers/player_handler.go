@@ -49,7 +49,7 @@ func (h *PlayerHandler) GetPlayers(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "database error"})
 		return
 	}
-	defer cursor.Close(ctx)
+	defer func() { _ = cursor.Close(ctx) }()
 
 	var players []models.Player
 	if err := cursor.All(ctx, &players); err != nil {
