@@ -91,6 +91,8 @@ npm run dev
 
 - ✅ [#18](https://github.com/oussema-fatnassi/WarOfTanks/issues/18) Gameplay & Win Conditions — GameStateMachine (Playing/Paused/GameOver), configurable timer, zone-based scoring, GameHUD, GameOverScreen, MainMenuController
 - ✅ [#21](https://github.com/oussema-fatnassi/WarOfTanks/issues/21) AI - Generic Behaviour Tree System — pure C# BT framework (IBehaviourNode, Selector, Sequence, Inverter, Repeater, ActionNode, ConditionNode, BehaviourTree root), dedicated asmdef, 14 unit tests, UML diagram committed
+- ✅ [#15](https://github.com/oussema-fatnassi/WarOfTanks/issues/15) Navigation - Flow Field — BFS integration field + direction vector grid, `GetDirectionAtWorldPos` for multi-tank query, `FlowFieldStrategy` with world↔grid translation, cyan arrow debug gizmo, swappable via `EPathfinderType.FLOWFIELD`
+- ✅ [#27](https://github.com/oussema-fatnassi/WarOfTanks/issues/27) Player & Match Routes — `GET /players` leaderboard (sorted by score, paginated), `GET /players/me`, `POST /matches` (MongoDB transaction: saves match + updates player stats atomically), `GET /matches` (own history, paginated), all routes protected by JWT middleware
 
 ## In Progress / Remaining
 
@@ -104,11 +106,11 @@ npm run dev
 
 | #                                                               | Title                                       | Owner   | Priority | Status      |
 | --------------------------------------------------------------- | ------------------------------------------- | ------- | -------- | ----------- |
-| [#15](https://github.com/oussema-fatnassi/WarOfTanks/issues/15) | Navigation - Flow Field                     | Kamelia | Medium   | Not started |
+| [#15](https://github.com/oussema-fatnassi/WarOfTanks/issues/15) | Navigation - Flow Field                     | Kamelia | Medium   | ✅ Done — PR [#67](https://github.com/oussema-fatnassi/WarOfTanks/pull/67) |
 | [#19](https://github.com/oussema-fatnassi/WarOfTanks/issues/19) | Detection System - Field of View            | Oroitz  | High     | Not started |
 | [#20](https://github.com/oussema-fatnassi/WarOfTanks/issues/20) | Fog of War (WebGL-Compatible)               | Oroitz  | High     | Not started |
 | [#22](https://github.com/oussema-fatnassi/WarOfTanks/issues/22) | AI - Tank Behaviour Trees (Specializations) | Oroitz  | Critical | Not started |
-| [#27](https://github.com/oussema-fatnassi/WarOfTanks/issues/27) | Player & Match Routes                       | Kamelia | High     | Not started |
+| [#27](https://github.com/oussema-fatnassi/WarOfTanks/issues/27) | Player & Match Routes                       | Kamelia | High     | ✅ Done — PR pending |
 | [#28](https://github.com/oussema-fatnassi/WarOfTanks/issues/28) | Backend Unit Tests & CI Integration         | Kamelia | High     | Not started |
 | [#30](https://github.com/oussema-fatnassi/WarOfTanks/issues/30) | Auth Pages (Register + Login)               | Oussema | High     | Not started |
 
