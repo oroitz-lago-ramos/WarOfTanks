@@ -18,6 +18,8 @@ namespace WarOfTanks.AI
         public ZoneController zone;
         public float hpRatio;
 
+        private HealthSystem _healthSystem;
+
         /// <summary>
         /// Refreshes the blackboard values before the behaviour tree is ticked.
         /// </summary>
@@ -28,6 +30,11 @@ namespace WarOfTanks.AI
                 ClearDetectionData();
                 hpRatio = 0f;
                 return;
+            }
+
+            if (_healthSystem == null)
+            {
+                _healthSystem = self.GetComponent<HealthSystem>();
             }
 
             teamId = self.TeamId;
@@ -52,8 +59,7 @@ namespace WarOfTanks.AI
 
         private float GetHealthRatio()
         {
-            HealthSystem healthSystem = self.GetComponent<HealthSystem>();
-            return healthSystem != null ? healthSystem.HealthPercentage : 0f;
+            return _healthSystem != null ? _healthSystem.HealthPercentage : 0f;
         }
 
         private List<DetectionResult> FilterValidEnemies(List<DetectionResult> results)

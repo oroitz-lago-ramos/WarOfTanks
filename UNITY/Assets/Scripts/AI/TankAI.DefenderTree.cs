@@ -37,7 +37,8 @@ namespace WarOfTanks.AI
                     new ConditionNode(() =>
                         _blackboard != null &&
                         _zone != null &&
-                        _zone.controllingTeam == (int)_blackboard.teamId),
+                        _zone.controllingTeam == (int)_blackboard.teamId &&
+                        (_zone.IsCaptured() || _zone.captureProgress > 0f)),
                     new ActionNode(MoveToZonePerimeter)
                 }),
 
