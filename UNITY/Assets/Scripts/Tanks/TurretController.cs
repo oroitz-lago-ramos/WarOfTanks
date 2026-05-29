@@ -54,7 +54,10 @@ public class TurretController : MonoBehaviour
 
         GameObject bulletObject = Instantiate(_bulletPrefab, _cannonTipTransform.position, _cannonTipTransform.rotation, _bulletPool);
         BulletController bulletController = bulletObject.GetComponent<BulletController>();
-        Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponentInChildren<Collider2D>());
+        Collider2D tankCollider = GetComponentInParent<Collider2D>();
+        Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
+        if (tankCollider != null && bulletCollider != null)
+            Physics2D.IgnoreCollision(bulletCollider, tankCollider);
 
 
         // TODO : Maybe call initialize with damage, speed , etc. if needed in the future.

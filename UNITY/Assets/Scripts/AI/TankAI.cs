@@ -48,6 +48,7 @@ namespace WarOfTanks.AI
         private bool _isWaiting;
         private bool _isHandlingBlock;
         private Vector2 _lastBlockerPosition;
+        private bool _patrolTowardEnemy = true;
         private INavigable _navigator;
         private NavigationGrid _grid;
         private TankController _tankController;
