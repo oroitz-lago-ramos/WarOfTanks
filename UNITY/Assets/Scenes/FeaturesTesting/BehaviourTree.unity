@@ -8154,6 +8154,22 @@ PrefabInstance:
       propertyPath: _role
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _showDebugLogs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _detectionRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _fieldOfViewAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _obstacleLayerMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
 --- !u!1 &305643270
@@ -8800,6 +8816,46 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4703835614537488591, guid: a90906032f594de4fbf5530fc7895a69, type: 3}
   m_PrefabInstance: {fileID: 591256964}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &660325751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 773176152485814613, guid: 8c3bdc1bc81e82f49acf03aaac5e8b65, type: 3}
+  m_PrefabInstance: {fileID: 2057617217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &660325760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660325751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c233f21812b804d9936b50dafffbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanInterval: 0.1
+  _aimTolerance: 10
+  _showDebugLogs: 1
+--- !u!1 &700422529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 773176152485814613, guid: 8c3bdc1bc81e82f49acf03aaac5e8b65, type: 3}
+  m_PrefabInstance: {fileID: 1904058766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &700422538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700422529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c233f21812b804d9936b50dafffbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanInterval: 0.1
+  _aimTolerance: 10
+  _showDebugLogs: 1
 --- !u!1001 &797123547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8870,6 +8926,22 @@ PrefabInstance:
     - target: {fileID: 5609634953105270565, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
       propertyPath: _role
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _showDebugLogs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _detectionRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _fieldOfViewAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _obstacleLayerMask.m_Bits
+      value: 1536
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
@@ -9561,6 +9633,26 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &998530104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 773176152485814613, guid: 8c3bdc1bc81e82f49acf03aaac5e8b65, type: 3}
+  m_PrefabInstance: {fileID: 119331258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &998530113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998530104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c233f21812b804d9936b50dafffbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanInterval: 0.1
+  _aimTolerance: 10
+  _showDebugLogs: 1
 --- !u!1 &1008525846
 GameObject:
   m_ObjectHideFlags: 0
@@ -11984,5 +12076,21 @@ PrefabInstance:
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 591256965}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _showDebugLogs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _detectionRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _fieldOfViewAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231303744932298063, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}
+      propertyPath: _obstacleLayerMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b7d6e16d1164b36b6d441ec28f7b63, type: 3}

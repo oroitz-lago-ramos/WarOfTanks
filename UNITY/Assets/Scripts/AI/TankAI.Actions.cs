@@ -74,7 +74,10 @@ namespace WarOfTanks.AI
             Vector2 currentPosition = transform.position;
 
             if (Vector2.Distance(currentPosition, enemyPosition) <= _tank.FiringRange)
+            {
+                ClearPath();
                 return NodeStatus.Success;
+            }
 
             Vector2Int targetGrid = _grid.WorldToGridPosition(enemy.transform.position);
 
@@ -229,6 +232,48 @@ namespace WarOfTanks.AI
             }
 
             return NodeStatus.Success;
+        }
+
+        /// <summary>
+        /// Patrols back and forth between own spawn and the nearest enemy spawn.
+        /// Toggles direction each time the tank reaches the current waypoint.
+        /// Falls back to patrol when the attacker loses line of sight on all enemies.
+        /// </summary>
+        private NodeStatus PatrolBetweenSpawns()
+        {
+            if (_blackboard == null || _grid == null || _tank == null || GameManager.Instance == null)
+                return NodeStatus.Failure;
+
+            List<Tank> allTanks = GameManager.Instance.GetAllTanks();
+
+            Tank enemyTank = null;
+            foreach (Tank tank in allTanks)
+            {
+                if (tank != null && tank.TeamId == _blackboard.enemyTeamId)
+                {
+                    enemyTank = tank;
+                    break;
+                }
+            }
+
+            if (enemyTank == null) return NodeStatus.Failure;
+
+            Vector3 enemySpawn = enemyTank.SpawnPosition;
+            Vector3 ownSpawn = _tank.SpawnPosition;
+            Vector3 currentWaypoint = _patrolTowardEnemy ? enemySpawn : ownSpawn;
+
+            if (Vector2.Distance(transform.position, currentWaypoint) < 1f)
+            {
+                _patrolTowardEnemy = !_patrolTowardEnemy;
+                currentWaypoint = _patrolTowardEnemy ? enemySpawn : ownSpawn;
+            }
+
+            Vector2Int targetGrid = _grid.WorldToGridPosition(currentWaypoint);
+
+            if (IsAlreadyMovingTo(targetGrid)) return NodeStatus.Running;
+
+            SetDestination(targetGrid);
+            return NodeStatus.Running;
         }
 
         /// <summary>

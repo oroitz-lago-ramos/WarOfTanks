@@ -20,19 +20,20 @@ namespace WarOfTanks.AI
                     new ActionNode(MoveToSpawn)
                 }),
 
-                // Enemy visible -> move into range -> attack
+                // Enemy visible with line of sight -> chase -> attack
                 new Sequence(new List<IBehaviourNode>
                 {
-                    new ConditionNode(() => 
+                    new ConditionNode(() =>
                         _blackboard != null &&
                         _blackboard.closestEnemy != null &&
-                        _blackboard.closestEnemy.target != null),
+                        _blackboard.closestEnemy.target != null &&
+                        _blackboard.closestEnemy.isInLineOfSight),
                     new ActionNode(MoveToFiringRange),
                     new ActionNode(AttackClosestEnemy)
                 }),
 
-                // Default -> patrol toward enemy spawn
-                new ActionNode(PatrolToEnemySpawn)
+                // Default -> patrol between own spawn and enemy spawn
+                new ActionNode(PatrolBetweenSpawns)
             });
 
             return new BehaviourTreeController(root);
