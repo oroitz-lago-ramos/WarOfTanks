@@ -21,6 +21,7 @@ public class PlayerAutoAim : MonoBehaviour
     private Tank _tank;
     private DetectionResult _currentTarget;
 
+    /// <summary>Caches required components.</summary>
     private void Awake()
     {
         _visionSystem = GetComponent<VisionSystem>();
@@ -28,11 +29,15 @@ public class PlayerAutoAim : MonoBehaviour
         _tank = GetComponent<Tank>();
     }
 
+    /// <summary>Starts the repeating scan coroutine.</summary>
     private void Start()
     {
         StartCoroutine(ScanRoutine());
     }
 
+    /// <summary>
+    /// Repeatedly calls <see cref="UpdateTarget"/> on the configured scan interval.
+    /// </summary>
     private IEnumerator ScanRoutine()
     {
         while (true)
@@ -42,6 +47,9 @@ public class PlayerAutoAim : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Runs a vision scan and updates <see cref="_currentTarget"/> to the closest enemy with line of sight.
+    /// </summary>
     private void UpdateTarget()
     {
         List<Tank> allTanks = GameManager.Instance != null
@@ -60,6 +68,10 @@ public class PlayerAutoAim : MonoBehaviour
         DebugLogger.Log(_showDebugLogs, $"[PlayerAutoAim] {gameObject.name} target: {(_currentTarget != null ? _currentTarget.target.name : "none")}");
     }
 
+    /// <summary>
+    /// Each frame, rotates the turret toward the current target and fires when aimed and ready.
+    /// Clears the target if it dies or goes missing.
+    /// </summary>
     private void Update()
     {
         if (_currentTarget == null || _currentTarget.target == null || !_currentTarget.target.IsAlive)
