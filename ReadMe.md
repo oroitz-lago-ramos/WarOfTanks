@@ -98,6 +98,10 @@ npm run dev
 - ✅ [#28](https://github.com/oussema-fatnassi/WarOfTanks/issues/28) Backend Unit Tests & CI Integration — comprehensive handler tests (auth, player, match) against real MongoDB; CI updated to MongoDB replica set for transaction support; `go test -race -coverprofile`; `TestSaveMatch` covers win/loss stats update atomically
 - ✅ [#19](https://github.com/oussema-fatnassi/WarOfTanks/issues/19) Detection System - Field of View — `VisionSystem` MonoBehaviour with `Scan()` (360° radius, `Physics2D.Linecast` per-target line-of-sight, Cover + Obstacle layer blocking) and `GetClosestTarget()`; `DetectionResult` data class; `TankBlackboard` enemy filtering and health ratio; `IVisionSystem` interface; `PlayerAutoAim` component reusing vision for player turret; `TurretController` `RotateTo`/`IsAimedAt`/`Fire` finalised
 
+### Sprint 5 — Integration & Delivery
+
+- ✅ [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) Commander AI — scene-level `CommanderAI` MonoBehaviour aggregating per-tank vision into a unified battlefield picture, evaluation tick every 1s, 7-scenario decision cascade (outnumbered fallback, contested zone, neutral, winning lead, losing-urgent, losing-general, default) dispatching `EStrategicOrder` (NONE / CAPTUREZONE / DEFENDZONE / FULLAGGRESSION / FALLBACK); `TankAI.ReceiveOrder()` + root-level override `Selector` so role trees are temporarily overridden with auto-clear on success; bundled AI-pathfinding fix replacing the coroutine block handler with position-based stall detection + `Tank.GetBlockedCells()` + static-only fallback (same primitive as `MoveCommand`), fixes deadlocks at spawn
+
 ## In Progress / Remaining
 
 ### Sprint 3 — Navigation & Backend Foundation (Apr 20 – Apr 26)
@@ -122,13 +126,14 @@ npm run dev
 | #                                                               | Title                                                    | Owner   | Priority | Status      |
 | --------------------------------------------------------------- | -------------------------------------------------------- | ------- | -------- | ----------- |
 | [#7](https://github.com/oussema-fatnassi/WarOfTanks/issues/7)   | GitHub Actions - WebGL Build                             | Oussema | Medium   | Not started |
-| [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) | Commander AI                                             | Oussema | High     | Not started |
+| [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) | Commander AI                                             | Oussema | High     | ✅ Done      |
 | [#31](https://github.com/oussema-fatnassi/WarOfTanks/issues/31) | Leaderboard, Stats & Match History Pages                 | Oussema | High     | Not started |
 | [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                                         | Oussema | High     | Not started |
 | [#33](https://github.com/oussema-fatnassi/WarOfTanks/issues/33) | Docker Compose - Full Stack                              | Kamelia | High     | Not started |
 | [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) | Deploy Backend to Render                                 | Kamelia | Medium   | Not started |
 | [#36](https://github.com/oussema-fatnassi/WarOfTanks/issues/36) | Presentation Slides                                      | All     | High     | Not started |
 | [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47) | UI Mockups - Figma (Zoning, Wireframe, Hi-fi, Prototype) | Oussema | High     | Not started |
+| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Oussema | High     | In progress |
 
 ## Known Bugs & Issues
 
