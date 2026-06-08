@@ -277,11 +277,13 @@ namespace WarOfTanks.AI
         }
 
         /// <summary>
-        /// Executes the full aggression order.
-        /// Returns success when the tank is in firing range and can attack the closest enemy.
-        /// Returns running when the tank is moving to firing range.
-        /// Returns failure when the tank is not in a position to attack the closest enemy.
+        /// Executes the full aggression order by attacking a visible enemy or patrolling between spawn points.
         /// </summary>
+        /// <returns>
+        /// <see cref="NodeStatus.Success"/> when the attack action completes,
+        /// <see cref="NodeStatus.Running"/> while moving, or
+        /// <see cref="NodeStatus.Failure"/> when no valid aggressive action is available.
+        /// </returns>
         private NodeStatus ExecuteFullAggressionOrder()
         {
             bool hasVisibleEnemy =
@@ -316,8 +318,12 @@ namespace WarOfTanks.AI
         }
 
         /// <summary>
-        /// Executes the strategic order.
+        /// Executes the current commander order and clears it once the ordered action succeeds.
         /// </summary>
+        /// <returns>
+        /// The status returned by the action mapped to the current strategic order,
+        /// or <see cref="NodeStatus.Failure"/> when there is no active order.
+        /// </returns>
         private NodeStatus ExecuteStrategicOrder()
         {
             NodeStatus result;

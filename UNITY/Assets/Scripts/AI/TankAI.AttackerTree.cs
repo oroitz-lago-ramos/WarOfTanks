@@ -9,6 +9,7 @@ namespace WarOfTanks.AI
         /// <summary>
         /// Builds the attacker role tree: retreat when low, pursue visible enemies, otherwise patrol enemy spawn.
         /// </summary>
+        /// <returns>The root node for attacker role behaviour.</returns>
         private IBehaviourNode BuildAttackerTreeRoot()
         {
             Selector root = new Selector(new List<IBehaviourNode>

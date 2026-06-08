@@ -61,9 +61,24 @@ namespace WarOfTanks.AI
         private ZoneController _zone;
         private Vector2Int _currentTargetGridPosition;
         private EStrategicOrder _strategicOrder = EStrategicOrder.NONE;
+        /// <summary>
+        /// Gets the enemies currently detected by this tank, or an empty list when the blackboard is not ready.
+        /// </summary>
         public List<DetectionResult> EnemyResults => _blackboard?.enemyResults ?? new List<DetectionResult>();
+
+        /// <summary>
+        /// Gets the tactical role assigned to this tank.
+        /// </summary>
         public ETankRole Role => _role;
+
+        /// <summary>
+        /// Gets the current health percentage used by commander and behaviour tree decisions.
+        /// </summary>
         public float HealthRatio => _healthSystem != null ? _healthSystem.HealthPercentage : 1f;
+
+        /// <summary>
+        /// Gets whether this tank should prioritize returning to spawn for healing.
+        /// </summary>
         public bool NeedsHealing => HealthRatio < 0.3f;
         
         private void Awake()
@@ -350,8 +365,9 @@ namespace WarOfTanks.AI
         }
 
         /// <summary>
-        /// Creates the behaviour tree that matches the configured tank role.
+        /// Creates the behaviour tree for this tank, prioritizing healing and commander orders before role behaviour.
         /// </summary>
+        /// <returns>The behaviour tree controller used to tick this tank's decisions.</returns>
         private BehaviourTreeController BuildBehaviourTree()
         {
             Selector root = new Selector(new List<IBehaviourNode>
@@ -374,6 +390,10 @@ namespace WarOfTanks.AI
             return new BehaviourTreeController(root);
         }
 
+        /// <summary>
+        /// Builds the role-specific subtree used when no higher-priority healing or commander order is active.
+        /// </summary>
+        /// <returns>The root node for the configured tank role, or a no-op node for unknown roles.</returns>
         private IBehaviourNode BuildRoleTreeRoot()
         {
             switch (_role)
@@ -401,8 +421,9 @@ namespace WarOfTanks.AI
         }
 
         /// <summary>
-        /// Receives a strategic order from the commander.
+        /// Receives a strategic order from the commander, unless healing should keep priority over that order.
         /// </summary>
+        /// <param name="order">The strategic order to store for the next behaviour tree tick.</param>
         public void ReceiveOrder(EStrategicOrder order)
         {
             if (NeedsHealing && order != EStrategicOrder.FALLBACK)

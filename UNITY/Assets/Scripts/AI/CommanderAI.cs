@@ -5,6 +5,9 @@ using ZoneController = WarOfTanks.Zone.Zone;
 
 namespace WarOfTanks.AI
 {
+    /// <summary>
+    /// Coordinates a team of AI tanks by periodically evaluating the battlefield and issuing strategic orders.
+    /// </summary>
     public class CommanderAI : MonoBehaviour
     {
         [SerializeField] private List<TankAI> _tanks;
@@ -14,6 +17,9 @@ namespace WarOfTanks.AI
         [SerializeField] private ETankTeam _team;
         private float _evaluationTimer;
 
+        /// <summary>
+        /// Advances the evaluation timer and assigns strategic orders when the configured interval elapses.
+        /// </summary>
         private void Update()
         {
             _evaluationTimer += Time.deltaTime;
@@ -24,6 +30,10 @@ namespace WarOfTanks.AI
             }
         }
 
+        /// <summary>
+        /// Combines all visible enemy detections from the controlled tanks into one deduplicated battlefield view.
+        /// </summary>
+        /// <returns>A list of unique enemy detection results, deduplicated by target tank.</returns>
         private List<DetectionResult> AggregateBattlefield()
         {
             List<DetectionResult> results = new List<DetectionResult>();
@@ -41,6 +51,11 @@ namespace WarOfTanks.AI
             return results;
         }
 
+        /// <summary>
+        /// Counts all currently alive tanks for the specified team.
+        /// </summary>
+        /// <param name="team">The team whose living tanks should be counted.</param>
+        /// <returns>The number of alive tanks on the given team.</returns>
         private int GetAliveTankCount(ETankTeam team)
         {
             if (GameManager.Instance == null)
@@ -63,6 +78,12 @@ namespace WarOfTanks.AI
             return count;
         }
 
+        /// <summary>
+        /// Checks whether any detected enemy is within the given radius of the capture zone.
+        /// </summary>
+        /// <param name="enemies">The aggregated enemy detections to evaluate.</param>
+        /// <param name="radius">The maximum distance from the zone for an enemy to count as nearby.</param>
+        /// <returns>True if at least one detected enemy is near the zone; otherwise false.</returns>
         private bool HasEnemyNearZone(List<DetectionResult> enemies, float radius)
         {
             if (_zone == null || enemies == null)
@@ -84,6 +105,11 @@ namespace WarOfTanks.AI
             return false;
         }
 
+        /// <summary>
+        /// Sends a strategic order to a single tank if the tank reference is valid.
+        /// </summary>
+        /// <param name="tank">The tank that should receive the order.</param>
+        /// <param name="order">The strategic order to send.</param>
         private void IssueOrder(TankAI tank, EStrategicOrder order)
         {
             if (tank == null)
@@ -92,6 +118,9 @@ namespace WarOfTanks.AI
             tank.ReceiveOrder(order);
         }
 
+        /// <summary>
+        /// Evaluates current match state and applies the first matching strategic scenario to the controlled tanks.
+        /// </summary>
         private void AssignRoles()
         {
             if (_tanks == null || _zone == null || GameManager.Instance == null)
@@ -185,6 +214,10 @@ namespace WarOfTanks.AI
             IssueOrderToAll(EStrategicOrder.NONE);
         }
 
+        /// <summary>
+        /// Sends the same strategic order to every tank controlled by this commander.
+        /// </summary>
+        /// <param name="order">The order to send to all controlled tanks.</param>
         private void IssueOrderToAll(EStrategicOrder order)
         {
             foreach (TankAI tank in _tanks)
