@@ -54,7 +54,8 @@ const LeaderboardPage = () => {
           No players yet.
         </p>
       ) : (
-        <table className="w-full border-collapse">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px] border-collapse">
           <thead>
             <tr className="border-b border-[#2a313b]">
               {['#', 'Player', 'Score', 'W', 'L', 'Win %'].map((h, i) => (
@@ -111,6 +112,7 @@ const LeaderboardPage = () => {
             })}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   )

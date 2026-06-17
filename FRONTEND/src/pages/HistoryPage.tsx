@@ -62,7 +62,8 @@ const HistoryPage = () => {
         </p>
       ) : (
         <>
-          <div className="border border-[#2a313b]">
+          <div className="overflow-x-auto border border-[#2a313b]">
+            <div className="min-w-[480px]">
             <div className="grid grid-cols-4 border-b border-[#2a313b] px-5 py-3">
               {TABLE_HEADERS.map(h => (
                 <span
@@ -106,6 +107,7 @@ const HistoryPage = () => {
             })}
 
             {loading && <SkeletonRows count={3} height="h-[60px]" />}
+            </div>
           </div>
 
           {!loading && hasMore && (
