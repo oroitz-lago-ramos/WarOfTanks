@@ -8,7 +8,7 @@ interface EyebrowProps {
 /** Mono uppercase micro-label used for breadcrumbs, card labels and panel headers. */
 const Eyebrow = ({ children, className = '' }: EyebrowProps) => (
   <span
-    className={`font-mono text-[10.5px] tracking-[1.26px] text-dim uppercase ${className}`}
+    className={`text-dim font-mono text-[10.5px] tracking-[1.26px] uppercase ${className}`}
   >
     {children}
   </span>

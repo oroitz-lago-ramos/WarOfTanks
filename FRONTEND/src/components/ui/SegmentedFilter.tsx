@@ -24,7 +24,7 @@ function SegmentedFilter<T extends string>({
 }: SegmentedFilterProps<T>) {
   return (
     <div className="flex items-center gap-2">
-      {options.map(opt => {
+      {options.map((opt) => {
         const active = opt.value === value
         return (
           <button

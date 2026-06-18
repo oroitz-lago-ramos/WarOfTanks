@@ -16,9 +16,14 @@ const tones: Record<BadgeTone, string> = {
 }
 
 /** Outlined pill with optional leading dot. */
-const Badge = ({ children, tone = 'neutral', dot = false, className = '' }: BadgeProps) => (
+const Badge = ({
+  children,
+  tone = 'neutral',
+  dot = false,
+  className = '',
+}: BadgeProps) => (
   <span
-    className={`inline-flex items-center gap-1.5 rounded-pill border px-[9px] py-[5px] font-mono text-[10.5px] font-bold tracking-[1.05px] uppercase ${tones[tone]} ${className}`}
+    className={`rounded-pill inline-flex items-center gap-1.5 border px-[9px] py-[5px] font-mono text-[10.5px] font-bold tracking-[1.05px] uppercase ${tones[tone]} ${className}`}
   >
     {dot && <span className="size-1.5 rounded-[2px] bg-current" />}
     {children}

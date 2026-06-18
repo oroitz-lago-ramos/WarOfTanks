@@ -6,12 +6,16 @@ interface ProgressBarProps {
 }
 
 /** Thin progress bar on a dark track. */
-const ProgressBar = ({ value, className = '', tone = 'win' }: ProgressBarProps) => {
+const ProgressBar = ({
+  value,
+  className = '',
+  tone = 'win',
+}: ProgressBarProps) => {
   const pct = Math.max(0, Math.min(100, value))
   return (
-    <div className={`h-1.5 overflow-hidden rounded-pill bg-line ${className}`}>
+    <div className={`rounded-pill bg-line h-1.5 overflow-hidden ${className}`}>
       <div
-        className={`h-full rounded-pill transition-all duration-500 ${tone === 'win' ? 'bg-win' : 'bg-loss'}`}
+        className={`rounded-pill h-full transition-all duration-500 ${tone === 'win' ? 'bg-win' : 'bg-loss'}`}
         style={{ width: `${pct}%` }}
       />
     </div>

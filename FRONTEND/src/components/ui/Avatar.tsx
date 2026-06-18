@@ -18,7 +18,7 @@ const initials = (name: string) =>
 /** Circular initials avatar. */
 const Avatar = ({ name, size = 'md', className = '' }: AvatarProps) => (
   <span
-    className={`inline-flex shrink-0 items-center justify-center rounded-full border border-line-strong bg-raised font-mono font-bold text-fg ${sizes[size]} ${className}`}
+    className={`border-line-strong bg-raised text-fg inline-flex shrink-0 items-center justify-center rounded-full border font-mono font-bold ${sizes[size]} ${className}`}
   >
     {initials(name)}
   </span>

@@ -74,7 +74,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let active = true
     const restore = async () => {
       try {
-        const { data } = await client.post<RefreshResponse>('/api/v1/auth/refresh')
+        const { data } = await client.post<RefreshResponse>(
+          '/api/v1/auth/refresh',
+        )
         if (!active) return
         handleSetAccessToken(data.accessToken)
 
@@ -83,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           fromRefresh ??
           (await client
             .get<LoginResponsePlayer>('/api/v1/players/me')
-            .then(res => normalizePlayer(res.data))
+            .then((res) => normalizePlayer(res.data))
             .catch(() => null))
         if (active) persistPlayer(fromMe ?? readCachedPlayer())
       } catch {

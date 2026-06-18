@@ -19,7 +19,11 @@ const variants: Record<Variant, string> = {
   ghost: 'px-3 py-2 text-muted hover:text-fg',
 }
 
-const Button = ({ variant = 'outline', className = '', ...props }: ButtonProps) => (
+const Button = ({
+  variant = 'outline',
+  className = '',
+  ...props
+}: ButtonProps) => (
   <button className={`${base} ${variants[variant]} ${className}`} {...props} />
 )
 

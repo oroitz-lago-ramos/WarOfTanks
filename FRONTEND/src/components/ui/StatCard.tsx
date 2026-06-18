@@ -17,14 +17,14 @@ const tones = {
 } as const
 
 const StatCard = ({ label, value, tone = 'default', delta }: StatCardProps) => (
-  <div className="flex flex-col gap-1 rounded-card border border-line bg-panel p-[21px]">
+  <div className="rounded-card border-line bg-panel flex flex-col gap-1 border p-[21px]">
     <Eyebrow>{label}</Eyebrow>
     <p
       className={`pt-0.5 text-[40px] leading-none font-semibold tracking-[-0.8px] ${tones[tone]}`}
     >
       {value}
     </p>
-    {delta && <p className="font-mono text-[11px] text-muted">{delta}</p>}
+    {delta && <p className="text-muted font-mono text-[11px]">{delta}</p>}
   </div>
 )
 

@@ -55,12 +55,12 @@ const LeaderboardPage = () => {
     {
       key: 'player',
       header: 'Player',
-      render: p => {
+      render: (p) => {
         const isMe = p.id === me?.id
         return (
           <div className="flex items-center gap-3">
             <Avatar name={p.username} size="sm" />
-            <span className="text-sm text-fg">{p.username}</span>
+            <span className="text-fg text-sm">{p.username}</span>
             {isMe && <Badge tone="win">You</Badge>}
           </div>
         )
@@ -70,40 +70,50 @@ const LeaderboardPage = () => {
       key: 'score',
       header: 'Score',
       align: 'right',
-      render: p => (
-        <span className="font-mono text-sm font-bold text-fg">{p.stats.totalScore}</span>
+      render: (p) => (
+        <span className="text-fg font-mono text-sm font-bold">
+          {p.stats.totalScore}
+        </span>
       ),
     },
     {
       key: 'wins',
       header: 'Wins',
       align: 'right',
-      render: p => <span className="font-mono text-sm text-win">{p.stats.wins}</span>,
+      render: (p) => (
+        <span className="text-win font-mono text-sm">{p.stats.wins}</span>
+      ),
     },
     {
       key: 'losses',
       header: 'Losses',
       align: 'right',
-      render: p => <span className="font-mono text-sm text-loss">{p.stats.losses}</span>,
+      render: (p) => (
+        <span className="text-loss font-mono text-sm">{p.stats.losses}</span>
+      ),
     },
     {
       key: 'matches',
       header: 'Matches',
       align: 'right',
-      render: p => (
-        <span className="font-mono text-sm text-muted">{p.stats.totalMatches}</span>
+      render: (p) => (
+        <span className="text-muted font-mono text-sm">
+          {p.stats.totalMatches}
+        </span>
       ),
     },
     {
       key: 'winrate',
       header: 'Win rate',
       align: 'right',
-      render: p => {
+      render: (p) => {
         const rate = winRateOf(p)
         return (
           <div className="flex items-center justify-end gap-3">
             <ProgressBar value={rate} className="w-24" />
-            <span className="w-9 text-right font-mono text-sm text-muted">{rate}%</span>
+            <span className="text-muted w-9 text-right font-mono text-sm">
+              {rate}%
+            </span>
           </div>
         )
       },
@@ -144,8 +154,8 @@ const LeaderboardPage = () => {
           <DataTable
             columns={columns}
             rows={players}
-            rowKey={p => p.id}
-            rowClassName={p =>
+            rowKey={(p) => p.id}
+            rowClassName={(p) =>
               p.id === me?.id
                 ? 'bg-win/[0.06] [&>td:first-child]:border-l-2 [&>td:first-child]:border-win'
                 : 'hover:bg-raised/40'

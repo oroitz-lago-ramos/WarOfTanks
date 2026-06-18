@@ -7,8 +7,8 @@ interface KeycapHintProps {
 
 /** A keycap chip followed by a label, e.g. [WASD] move. */
 const KeycapHint = ({ keys, children }: KeycapHintProps) => (
-  <span className="inline-flex items-center gap-2 font-mono text-[11px] text-dim">
-    <kbd className="rounded-[3px] border border-line bg-raised px-2 py-1 text-muted">
+  <span className="text-dim inline-flex items-center gap-2 font-mono text-[11px]">
+    <kbd className="border-line bg-raised text-muted rounded-[3px] border px-2 py-1">
       {keys}
     </kbd>
     {children}

@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import LeaderboardPage from './pages/LeaderboardPage'
@@ -9,8 +15,8 @@ import { useAuth } from './hooks/useAuth'
 import Navbar from './components/Navbar'
 
 const AppLoader = () => (
-  <div className="grid min-h-svh place-items-center bg-bg">
-    <span className="font-mono text-[11px] tracking-[2px] text-dim uppercase">
+  <div className="bg-bg grid min-h-svh place-items-center">
+    <span className="text-dim font-mono text-[11px] tracking-[2px] uppercase">
       Loading…
     </span>
   </div>
@@ -31,7 +37,7 @@ const ProtectedLayout = () => {
   if (initializing) return <AppLoader />
   if (!accessToken) return <Navigate to="/login" replace />
   return (
-    <div className="min-h-screen bg-bg text-left text-fg">
+    <div className="bg-bg text-fg min-h-screen text-left">
       <Navbar />
       <main>
         <Outlet />

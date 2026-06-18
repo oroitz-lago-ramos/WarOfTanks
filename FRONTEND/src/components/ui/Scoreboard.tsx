@@ -21,7 +21,9 @@ const Column = ({ side, tone }: { side: Side; tone: 'win' | 'loss' }) => (
     >
       {side.score}
     </span>
-    {side.sub && <span className="font-mono text-[11px] text-dim">{side.sub}</span>}
+    {side.sub && (
+      <span className="text-dim font-mono text-[11px]">{side.sub}</span>
+    )}
   </div>
 )
 
@@ -29,7 +31,7 @@ const Column = ({ side, tone }: { side: Side; tone: 'win' | 'loss' }) => (
 const Scoreboard = ({ ally, enemy }: ScoreboardProps) => (
   <div className="flex items-center justify-center gap-6 sm:gap-10">
     <Column side={ally} tone="win" />
-    <span className="font-mono text-[28px] text-dim">vs</span>
+    <span className="text-dim font-mono text-[28px]">vs</span>
     <Column side={enemy} tone="loss" />
   </div>
 )

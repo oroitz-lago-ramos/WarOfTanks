@@ -7,9 +7,11 @@ interface EmptyStateProps {
 }
 
 const EmptyState = ({ message, icon, className = '' }: EmptyStateProps) => (
-  <div className={`flex flex-col items-center gap-3 py-16 text-center ${className}`}>
+  <div
+    className={`flex flex-col items-center gap-3 py-16 text-center ${className}`}
+  >
     {icon}
-    <p className="font-mono text-sm text-muted">{message}</p>
+    <p className="text-muted font-mono text-sm">{message}</p>
   </div>
 )
 

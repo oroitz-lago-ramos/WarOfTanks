@@ -29,11 +29,11 @@ const StatsPage = () => {
       // (a brand-new player may not have a stats record yet → /me 404s).
       const me = await client
         .get<Player>('/api/v1/players/me')
-        .then(res => res.data)
+        .then((res) => res.data)
         .catch(() => null)
       const matches = await client
         .get<Match[]>('/api/v1/matches', { params: { limit: 1 } })
-        .then(res => res.data ?? [])
+        .then((res) => res.data ?? [])
         .catch(() => [] as Match[])
 
       if (!active) return
@@ -58,7 +58,7 @@ const StatsPage = () => {
           <ErrorBanner message={error} />
         ) : (
           <>
-            <div className="mb-6 h-7 w-48 animate-pulse rounded-card bg-panel" />
+            <div className="rounded-card bg-panel mb-6 h-7 w-48 animate-pulse" />
             <SkeletonRows count={4} height="h-28" />
           </>
         )}
@@ -85,7 +85,7 @@ const StatsPage = () => {
 
         <div className="mb-6 grid grid-cols-2 gap-5 lg:grid-cols-4">
           {['Total Score', 'Matches Played', 'Wins · Losses', 'Win Rate'].map(
-            label => (
+            (label) => (
               <StatCard
                 key={label}
                 label={label}
@@ -99,8 +99,8 @@ const StatsPage = () => {
         <Panel>
           <div className="flex flex-col items-center gap-5 px-6 py-20 text-center">
             <div className="flex flex-col gap-2">
-              <p className="text-lg font-semibold text-fg">No matches yet</p>
-              <p className="max-w-md text-[13px] leading-relaxed text-muted">
+              <p className="text-fg text-lg font-semibold">No matches yet</p>
+              <p className="text-muted max-w-md text-[13px] leading-relaxed">
                 Drop into your first battle and your scores, results and stats
                 will land here automatically.
               </p>
@@ -155,12 +155,12 @@ const StatsPage = () => {
                 }}
               />
             </div>
-            <div className="flex flex-col gap-4 border-t border-line pt-4 lg:border-t-0 lg:border-l lg:pt-1 lg:pl-8">
+            <div className="border-line flex flex-col gap-4 border-t pt-4 lg:border-t-0 lg:border-l lg:pt-1 lg:pl-8">
               <ResultBadge won={won} />
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1">
                   <Eyebrow>Duration</Eyebrow>
-                  <span className="font-mono text-[22px] font-semibold text-fg">
+                  <span className="text-fg font-mono text-[22px] font-semibold">
                     {formatDuration(lastMatch.duration)}
                   </span>
                 </div>
@@ -168,7 +168,7 @@ const StatsPage = () => {
                   <Eyebrow>Final score</Eyebrow>
                   <span className="font-mono text-[22px] font-semibold">
                     <span className="text-win">{lastMatch.playerScore}</span>
-                    <span className="mx-1.5 text-dim">:</span>
+                    <span className="text-dim mx-1.5">:</span>
                     <span className="text-loss">{lastMatch.aiScore}</span>
                   </span>
                 </div>
@@ -178,7 +178,7 @@ const StatsPage = () => {
         </Panel>
       ) : (
         <Panel header="Last match">
-          <div className="px-6 py-12 text-center font-mono text-sm text-muted">
+          <div className="text-muted px-6 py-12 text-center font-mono text-sm">
             No recent match to show.
           </div>
         </Panel>

@@ -12,16 +12,24 @@ interface PanelProps {
 }
 
 /** Bordered surface with an optional header strip. */
-const Panel = ({ header, meta, children, className = '', bodyClassName = '' }: PanelProps) => (
-  <div className={`overflow-hidden rounded-card border border-line bg-panel ${className}`}>
+const Panel = ({
+  header,
+  meta,
+  children,
+  className = '',
+  bodyClassName = '',
+}: PanelProps) => (
+  <div
+    className={`rounded-card border-line bg-panel overflow-hidden border ${className}`}
+  >
     {(header || meta) && (
-      <div className="flex items-center justify-between gap-4 border-b border-line px-[18px] py-[14px]">
+      <div className="border-line flex items-center justify-between gap-4 border-b px-[18px] py-[14px]">
         {header && (
-          <span className="font-mono text-[11px] tracking-[1.32px] text-muted uppercase">
+          <span className="text-muted font-mono text-[11px] tracking-[1.32px] uppercase">
             {header}
           </span>
         )}
-        {meta && <span className="font-mono text-[11px] text-dim">{meta}</span>}
+        {meta && <span className="text-dim font-mono text-[11px]">{meta}</span>}
       </div>
     )}
     <div className={bodyClassName}>{children}</div>

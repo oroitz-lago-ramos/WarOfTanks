@@ -8,7 +8,9 @@ import Panel from '../components/ui/Panel'
 import Button from '../components/ui/Button'
 import ResultBadge from '../components/ui/ResultBadge'
 import DataTable, { type Column } from '../components/ui/DataTable'
-import SegmentedFilter, { type SegmentOption } from '../components/ui/SegmentedFilter'
+import SegmentedFilter, {
+  type SegmentOption,
+} from '../components/ui/SegmentedFilter'
 import SkeletonRows from '../components/ui/SkeletonRows'
 import EmptyState from '../components/ui/EmptyState'
 import ErrorBanner from '../components/ui/ErrorBanner'
@@ -29,8 +31,8 @@ const columns: Column<Match>[] = [
   {
     key: 'date',
     header: 'Date',
-    render: m => (
-      <span className="font-mono text-[13px] text-muted">
+    render: (m) => (
+      <span className="text-muted font-mono text-[13px]">
         {formatDateTime(m.createdAt)}
       </span>
     ),
@@ -38,10 +40,10 @@ const columns: Column<Match>[] = [
   {
     key: 'score',
     header: 'Score',
-    render: m => (
+    render: (m) => (
       <span className="font-mono text-sm">
         <span className="text-win">{m.playerScore}</span>
-        <span className="mx-1.5 text-dim">:</span>
+        <span className="text-dim mx-1.5">:</span>
         <span className="text-loss">{m.aiScore}</span>
       </span>
     ),
@@ -49,13 +51,15 @@ const columns: Column<Match>[] = [
   {
     key: 'result',
     header: 'Result',
-    render: m => <ResultBadge won={isWin(m)} />,
+    render: (m) => <ResultBadge won={isWin(m)} />,
   },
   {
     key: 'duration',
     header: 'Duration',
-    render: m => (
-      <span className="font-mono text-sm text-muted">{formatDuration(m.duration)}</span>
+    render: (m) => (
+      <span className="text-muted font-mono text-sm">
+        {formatDuration(m.duration)}
+      </span>
     ),
   },
 ]
@@ -76,7 +80,7 @@ const HistoryPage = () => {
         params: { limit: PAGE_SIZE, offset: currentOffset },
       })
       const data = res.data ?? []
-      setMatches(prev => (reset ? data : [...prev, ...data]))
+      setMatches((prev) => (reset ? data : [...prev, ...data]))
       setHasMore(data.length === PAGE_SIZE)
       setOffset(currentOffset + data.length)
     } catch {
@@ -92,7 +96,7 @@ const HistoryPage = () => {
 
   const filtered = useMemo(() => {
     if (filter === 'win') return matches.filter(isWin)
-    if (filter === 'loss') return matches.filter(m => !isWin(m))
+    if (filter === 'loss') return matches.filter((m) => !isWin(m))
     return matches
   }, [matches, filter])
 
@@ -111,7 +115,11 @@ const HistoryPage = () => {
         title="Match history"
         subtitle="Your last battles, most recent first."
         action={
-          <SegmentedFilter options={FILTERS} value={filter} onChange={setFilter} />
+          <SegmentedFilter
+            options={FILTERS}
+            value={filter}
+            onChange={setFilter}
+          />
         }
       />
 
@@ -137,7 +145,7 @@ const HistoryPage = () => {
           <DataTable
             columns={columns}
             rows={filtered}
-            rowKey={m => m.id}
+            rowKey={(m) => m.id}
             minWidth="min-w-[560px]"
           />
         )}

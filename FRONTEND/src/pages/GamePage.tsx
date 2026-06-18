@@ -14,7 +14,7 @@ const UNITY_BUILD_URL = '/UnityBuild/UnityBuild/index.html'
 
 /** Hosts the Unity WebGL build inside the tactical viewport. */
 const GameViewport = () => (
-  <div className="relative min-h-[460px] overflow-hidden rounded-card border border-line bg-[#0b0e13] lg:min-h-[640px]">
+  <div className="rounded-card border-line relative min-h-[460px] overflow-hidden border bg-[#0b0e13] lg:min-h-[640px]">
     <iframe
       title="War of Tanks"
       src={UNITY_BUILD_URL}
@@ -33,7 +33,7 @@ const GamePage = () => {
   useEffect(() => {
     client
       .get<Match[]>('/api/v1/matches', { params: { limit: 1 } })
-      .then(res => setLastMatch(res.data?.[0] ?? null))
+      .then((res) => setLastMatch(res.data?.[0] ?? null))
       .catch(() => setLastMatch(null))
   }, [])
 
@@ -49,10 +49,10 @@ const GamePage = () => {
             <div className="flex items-center gap-3 p-[18px]">
               {player && <Avatar name={player.username} size="lg" />}
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-fg">
+                <span className="text-fg text-sm font-medium">
                   {player?.username}
                 </span>
-                <span className="font-mono text-[11px] text-dim">pilot</span>
+                <span className="text-dim font-mono text-[11px]">pilot</span>
               </div>
             </div>
           </Panel>
@@ -63,12 +63,12 @@ const GamePage = () => {
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[22px] font-bold">
                     <span className="text-win">{lastMatch.playerScore}</span>
-                    <span className="mx-1 text-dim">:</span>
+                    <span className="text-dim mx-1">:</span>
                     <span className="text-loss">{lastMatch.aiScore}</span>
                   </span>
                   <ResultBadge won={won} />
                 </div>
-                <div className="flex items-center justify-between font-mono text-[11px] text-dim">
+                <div className="text-dim flex items-center justify-between font-mono text-[11px]">
                   <span>Duration · {formatDuration(lastMatch.duration)}</span>
                   <span>{formatDateTime(lastMatch.createdAt)}</span>
                 </div>
@@ -77,10 +77,10 @@ const GamePage = () => {
           )}
 
           <Panel header="Tips">
-            <p className="p-[18px] text-[13px] leading-relaxed text-muted">
+            <p className="text-muted p-[18px] text-[13px] leading-relaxed">
               Hold the central <span className="text-win">ZONE</span> to gain
-              points over time. First team to <span className="text-win">5</span>{' '}
-              captures wins the round.
+              points over time. First team to{' '}
+              <span className="text-win">5</span> captures wins the round.
             </p>
           </Panel>
 
