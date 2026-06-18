@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WarOfTanks.Fog;
 
 /// <summary>
 /// Command that drives a tank to pursue and fire at a specific enemy target. The tank navigates
@@ -55,6 +56,9 @@ public class AttackCommand : ICommand
             return;
         }
 
+        Tank targetTank = _target as Tank;
+        bool canFireAtTarget = FogOfWarManager.CanTarget(targetTank);
+
         Vector2 currentTargetPos = (Vector2)_target.GetWorldPosition();
         Vector2 currentTankPosition = _tank.Controller.transform.position;
 
@@ -70,7 +74,7 @@ public class AttackCommand : ICommand
         {
             _tank.Controller.Stop();
             _tank.Turret.RotateTo(_lastTargetPos);
-            if (_tank.Turret.CanFire && _tank.Turret.IsAimedAt(_lastTargetPos, TankConstants.TURRET_TOLERANCE_ANGLE)) _tank.Turret.Fire();
+            if (canFireAtTarget && _tank.Turret.CanFire && _tank.Turret.IsAimedAt(_lastTargetPos, TankConstants.TURRET_TOLERANCE_ANGLE)) _tank.Turret.Fire();
             return;
         }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WarOfTanks.AI;
+using WarOfTanks.Fog;
 
 /// <summary>
 /// Automatically aims and fires the turret at the nearest visible enemy.
@@ -61,7 +62,7 @@ public class PlayerAutoAim : MonoBehaviour
         List<DetectionResult> visibleEnemies = new List<DetectionResult>();
         foreach (DetectionResult r in results)
         {
-            if (r.isInLineOfSight) visibleEnemies.Add(r);
+            if (r.isInLineOfSight && FogOfWarManager.CanTarget(r.target)) visibleEnemies.Add(r);
         }
 
         _currentTarget = _visionSystem.GetClosestTarget(visibleEnemies);
@@ -74,7 +75,10 @@ public class PlayerAutoAim : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (_currentTarget == null || _currentTarget.target == null || !_currentTarget.target.IsAlive)
+        if (_currentTarget == null
+            || _currentTarget.target == null
+            || !_currentTarget.target.IsAlive
+            || !FogOfWarManager.CanTarget(_currentTarget.target))
         {
             _currentTarget = null;
             return;
