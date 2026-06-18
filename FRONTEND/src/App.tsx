@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import LeaderboardPage from './pages/LeaderboardPage'
@@ -8,8 +14,17 @@ import GamePage from './pages/GamePage'
 import { useAuth } from './hooks/useAuth'
 import Navbar from './components/Navbar'
 
+const AppLoader = () => (
+  <div className="bg-bg grid min-h-svh place-items-center">
+    <span className="text-dim font-mono text-[11px] tracking-[2px] uppercase">
+      Loading…
+    </span>
+  </div>
+)
+
 const RootRedirect = () => {
-  const { accessToken } = useAuth()
+  const { accessToken, initializing } = useAuth()
+  if (initializing) return <AppLoader />
   return accessToken ? (
     <Navigate to="/leaderboard" replace />
   ) : (
@@ -18,12 +33,13 @@ const RootRedirect = () => {
 }
 
 const ProtectedLayout = () => {
-  const { accessToken } = useAuth()
+  const { accessToken, initializing } = useAuth()
+  if (initializing) return <AppLoader />
   if (!accessToken) return <Navigate to="/login" replace />
   return (
-    <div className="min-h-screen bg-[#0e1116] text-[#e7ecef] text-left">
+    <div className="bg-bg text-fg min-h-screen text-left">
       <Navbar />
-      <main className="py-6">
+      <main>
         <Outlet />
       </main>
     </div>

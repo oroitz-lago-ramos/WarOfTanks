@@ -1,0 +1,25 @@
+interface ProgressBarProps {
+  /** 0–100 */
+  value: number
+  className?: string
+  tone?: 'win' | 'loss'
+}
+
+/** Thin progress bar on a dark track. */
+const ProgressBar = ({
+  value,
+  className = '',
+  tone = 'win',
+}: ProgressBarProps) => {
+  const pct = Math.max(0, Math.min(100, value))
+  return (
+    <div className={`rounded-pill bg-line h-1.5 overflow-hidden ${className}`}>
+      <div
+        className={`rounded-pill h-full transition-all duration-500 ${tone === 'win' ? 'bg-win' : 'bg-loss'}`}
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  )
+}
+
+export default ProgressBar
