@@ -222,6 +222,9 @@ namespace WarOfTanks.AI
                 return NodeStatus.Failure;
 
             Tank enemy = _blackboard.closestEnemy.target;
+            if (_tank.TeamId == ETankTeam.PLAYER && !global::FogOfWarManager.CanTarget(enemy))
+                return NodeStatus.Failure;
+
             Vector2 targetPosition = enemy.transform.position;
 
             _tank.Turret.RotateTo(targetPosition);

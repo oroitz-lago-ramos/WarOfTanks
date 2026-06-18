@@ -127,7 +127,8 @@ public class PlayerInputHandler : MonoBehaviour
         if (selected.Count == 0) return;
         Collider2D hit = Physics2D.OverlapPoint(worldClick, _tankLayer);
         ISelectable selectable = hit != null ? hit.GetComponentInParent<ISelectable>() : null;
-        if (selectable != null && selectable.IsEnemy())
+        Tank targetTank = selectable as Tank;
+        if (selectable != null && selectable.IsEnemy() && FogOfWarManager.CanTarget(targetTank))
             _commandDispatcher.IssueAttackCommand(selected, selectable);
         else
         {
