@@ -35,6 +35,7 @@ UNITY/
     │   │   ├── VisionSystem.cs        # Detection system — 360° scan, Linecast LoS, _obstacleLayerMask
     │   │   └── DetectionResult.cs     # Per-target detection data (target, distance, angle, isInLineOfSight)
     │   ├── Commands/          # ICommand implementations (Move, Attack, AttackZone, Stop)
+    │   ├── Core/              # MatchSettings — PlayerPrefs-backed player-configurable match specs
     │   ├── Enums/             # ETankTeam, ETankRole, EPathfinderType, EStrategicOrder
     │   ├── Fog/               # WarOfTanks.Fog — FogOfWarManager, FogVisibility, FogOfWarOverlay (WebGL-safe enemy concealment)
     │   ├── GameStates/        # GameStateMachine, PlayingState, PausedState, GameOverState
@@ -44,11 +45,13 @@ UNITY/
     │   ├── Navigation/        # NavigationStrategy, AStarStrategy, FlowFieldStrategy, StraightLineStrategy
     │   ├── Tanks/             # Tank, TankController, TurretController, PlayerAutoAim, SelectionIndicator, TankConstants
     │   ├── Tools/             # SingletonBehaviour<T>, DebugLogger
-    │   └── UI/                # SelectionBox, HealthBarUI, ZoneUIController, GameHUD, GameOverScreen, MainMenuController
+    │   └── UI/                # SelectionBox, HealthBarUI, ZoneUIController, GameHUD, GameOverScreen, MainMenuController, MainMenuUI, PauseMenu
+    │       └── Editor/        # MenuUIFactory + editor generators (MainMenu, GameHUD, PauseMenu, GameOver, ZoneCaptureBar) — reproducible UI prefab generation
     ├── Tests/
     │   └── BehaviourTreeTests.cs  # 14 unit tests (Unity Test Runner)
     ├── Prefabs/
-    │   └── Tanks/             # Tank.prefab (player), Enemy.prefab (AI — TankAI + VisionSystem)
+    │   ├── Tanks/             # Tank.prefab (player), Enemy.prefab (AI — TankAI + VisionSystem)
+    │   └── UI/                # MainMenuUI, GameHUD, PauseMenu, GameOverUI, ZoneCaptureBar (generated)
     ├── Sprites/               # Sprite assets
     └── Tilemaps/              # Tile assets and palettes
 ```
@@ -75,6 +78,7 @@ UNITY/
 | AI - Tank Behaviour Trees (Specializations) | [#22](https://github.com/oussema-fatnassi/WarOfTanks/issues/22) | ✅ Done |
 | Commander AI | [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) | ✅ Done |
 | WebGL Build (GitHub Actions) | [#7](https://github.com/oussema-fatnassi/WarOfTanks/issues/7) | ✅ Done (merged to dev — PR #79) |
+| Final UI, Configurable Match Settings & Explosion Damage | [#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) | ✅ Done (merged to dev — PR #82) |
 
 ## Architecture Notes
 
@@ -89,5 +93,9 @@ UNITY/
 - `CommanderAI` is a scene-level MonoBehaviour (not attached to a tank) that aggregates each tank's `EnemyResults` into a unified battlefield picture and dispatches `EStrategicOrder` directives every configurable interval (default 1s); `TankAI.ReceiveOrder()` + a root-level override `Selector` interleave commander orders on top of the role tree, with auto-clear on action success ([#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) ✅)
 - `TankAI` path recovery now uses position-based stall detection backed by `Tank.GetBlockedCells()` with a static-only fallback — same primitive as the player's `MoveCommand`, eliminates spawn-queue deadlocks
 - Fog of War (`Assets/Scripts/Fog/`, `WarOfTanks.Fog` namespace) is WebGL-safe — no Post-Processing Stack, no compute shaders. `FogOfWarManager` polls friendly detection (cached `TankAI.EnemyResults` for AI tanks, direct `VisionSystem.Scan` for player tanks) every ~0.1s and reveals an enemy only when `target != null && target.IsAlive && isInLineOfSight`, with a hysteresis grace period to avoid edge flicker. `FogVisibility` fades a tank's world `SpriteRenderer`s **and** UI (`CanvasGroup`/`Graphic`) so health bars hide with the tank; `FogOfWarOverlay` draws a runtime `Texture2D` to darken out-of-vision terrain. Fog also gates targeting (`FogOfWarManager.CanTarget`) so fogged enemies can't be auto-aimed or fired at ([#20](https://github.com/oussema-fatnassi/WarOfTanks/issues/20) ✅ — pending WebGL build verification)
+- `MatchSettings` (`Assets/Scripts/Core/`) is a static `PlayerPrefs`-backed gateway for player-configurable match specs (tank health, fire rate, respawn delay, bullet damage, explosion radius, match duration, score limit, master volume). Defaults mirror the prefab/Inspector values so gameplay is unchanged until edited; gameplay components (`GameManager`, `HealthSystem`, `Tank`, `TurretController`, `BulletController`) read the relevant value in `Awake`. The main-menu settings panel writes the values via `MainMenuUI` and persists with `Save()` ([#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) ✅)
+- UI prefabs are built reproducibly by editor generators in `Assets/Scripts/UI/Editor/` on top of a shared `MenuUIFactory` (palette, typography, cards, buttons, input fields, sliders, EventSystem), keeping HUD/pause/game-over visually consistent. Runtime behaviour lives in `MainMenuUI` and `PauseMenu`; pause routes resume through `GameManager.RequestResume()` and resets `Time.timeScale` before any scene load ([#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) ✅)
+- Bullet damage is impact-centred area-of-effect (`BulletController.Explode` → `Physics2D.OverlapCircleAll`): full damage at the centre falling linearly to zero at the explosion radius, friendly tanks ignored, per-tank dedupe via `HashSet` to avoid multi-collider double hits; the falloff distance now only bounds shell range/lifetime ([#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) ✅)
+- **Follow-up:** `MatchSettings` currently stores/consumes most values raw — only master volume is clamped. Out-of-range input (negative health, zero/negative explosion radius, etc.) is not yet rejected at the settings boundary; the clamping setters (`HealthSystem.SetMaxHealth`, `Tank.SetRespawnDelay`, `TurretController.SetFireRate`) exist but are bypassed by the `Awake` read path.
 - The AI + tank system must remain a self-contained modular prefab (championship requirement)
 - Naming conventions: see `docs/naming-conventions.md` in the root repo

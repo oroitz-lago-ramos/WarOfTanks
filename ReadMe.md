@@ -110,6 +110,7 @@ npm run dev
 
 - ✅ [#33](https://github.com/oussema-fatnassi/WarOfTanks/issues/33) Docker Compose - Full Stack — `docker-compose.yml` with 3 services (MongoDB with healthcheck, Go backend with healthcheck, React frontend via nginx), multi-stage Dockerfiles, persistent volume, SPA routing via nginx
 - ✅ [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) Commander AI — scene-level `CommanderAI` MonoBehaviour aggregating per-tank vision into a unified battlefield picture, evaluation tick every 1s, 7-scenario decision cascade (outnumbered fallback, contested zone, neutral, winning lead, losing-urgent, losing-general, default) dispatching `EStrategicOrder` (NONE / CAPTUREZONE / DEFENDZONE / FULLAGGRESSION / FALLBACK); `TankAI.ReceiveOrder()` + root-level override `Selector` so role trees are temporarily overridden with auto-clear on success; bundled AI-pathfinding fix replacing the coroutine block handler with position-based stall detection + `Tank.GetBlockedCells()` + static-only fallback (same primitive as `MoveCommand`), fixes deadlocks at spawn
+- ✅ [#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) Final UI Overhaul, Configurable Match Settings & Explosion Damage — cohesive MainMenu → Gameplay → Pause → GameOver flow; shared `MenuUIFactory` + editor generators producing all UI prefabs (MainMenu, GameHUD, PauseMenu, GameOver, ZoneCaptureBar); `MatchSettings` (`PlayerPrefs`-backed) exposing tank health, fire rate, respawn delay, bullet damage, explosion radius, match duration, score limit, and master volume, wired into the matching gameplay components with prefab-matching defaults; bullet damage switched from distance-travelled falloff to impact-centred area-of-effect explosions (`Physics2D.OverlapCircleAll`, friendly-fire ignored, per-tank dedupe); `FogOfWarManager` re-bootstraps on scene reload (merged to dev via PR #82)
 
 ## In Progress / Remaining
 
@@ -118,35 +119,21 @@ npm run dev
 | #                                                               | Title                 | Owner  | Priority | Status      |
 | --------------------------------------------------------------- | --------------------- | ------ | -------- | ----------- |
 | [#14](https://github.com/oussema-fatnassi/WarOfTanks/issues/14) | Navigation - Dijkstra | Oroitz | Medium   | Not started |
-| #                                                               | Title                                       | Owner   | Priority | Status      |
-| --------------------------------------------------------------- | ------------------------------------------- | ------- | -------- | ----------- |
-| [#15](https://github.com/oussema-fatnassi/WarOfTanks/issues/15) | Navigation - Flow Field                     | Kamelia | Medium   | ✅ Done  |
-| [#19](https://github.com/oussema-fatnassi/WarOfTanks/issues/19) | Detection System - Field of View            | Oroitz  | High     | ✅ Done  |
-| [#20](https://github.com/oussema-fatnassi/WarOfTanks/issues/20) | Fog of War (WebGL-Compatible)               | Oussema | High     | ✅ Done  |
-| [#22](https://github.com/oussema-fatnassi/WarOfTanks/issues/22) | AI - Tank Behaviour Trees (Specializations) | Oroitz  | Critical | Not started |
-| [#27](https://github.com/oussema-fatnassi/WarOfTanks/issues/27) | Player & Match Routes                       | Kamelia | High     | ✅ Done  |
-| [#28](https://github.com/oussema-fatnassi/WarOfTanks/issues/28) | Backend Unit Tests & CI Integration         | Kamelia | High     | ✅ Done  |
 
 ### Sprint 5 — Integration & Delivery
 
 | #                                                               | Title                                                    | Owner   | Priority | Status      |
 | --------------------------------------------------------------- | -------------------------------------------------------- | ------- | -------- | ----------- |
-| [#7](https://github.com/oussema-fatnassi/WarOfTanks/issues/7)   | GitHub Actions - WebGL Build                             | Oussema | Medium   | ✅ Done      |
-| [#20](https://github.com/oussema-fatnassi/WarOfTanks/issues/20) | Fog of War (WebGL-Compatible)                            | Oussema | High     | ✅ Done      |
-| [#23](https://github.com/oussema-fatnassi/WarOfTanks/issues/23) | Commander AI                                             | Oussema | High     | ✅ Done      |
-| [#31](https://github.com/oussema-fatnassi/WarOfTanks/issues/31) | Leaderboard, Stats & Match History Pages                 | Oussema | High     | Not started |
+| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Oussema | High     | In progress |
 | [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                                         | Oussema | High     | Not started |
-| [#33](https://github.com/oussema-fatnassi/WarOfTanks/issues/33) | Docker Compose - Full Stack                              | Kamelia | High     | ✅ Done     |
 | [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) | Deploy Backend to Render                                 | Kamelia | Medium   | Not started |
 | [#36](https://github.com/oussema-fatnassi/WarOfTanks/issues/36) | Presentation Slides                                      | All     | High     | Not started |
 | [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47) | UI Mockups - Figma (Zoning, Wireframe, Hi-fi, Prototype) | Oussema | High     | Not started |
 | [#66](https://github.com/oussema-fatnassi/WarOfTanks/issues/66) | Refactor: GameManager SOLID improvements                 | Oussema | Low      | Not started |
-| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Oroitz  | High     | Not started |
-| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Oussema | High     | In progress |
 
 ## Known Bugs & Issues
 
-No bugs reported yet.
+- [#76](https://github.com/oussema-fatnassi/WarOfTanks/issues/76) Add password validation conditions at registration (open).
 
 ## Architecture
 
