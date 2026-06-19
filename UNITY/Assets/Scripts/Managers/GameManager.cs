@@ -38,6 +38,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         base.Awake();
         ApplyDebugSettings();
+        // Apply player-configured match specs (defaults match the Inspector, so unchanged unless edited).
+        _matchDuration = MatchSettings.MatchDuration;
+        _scoreLimit = MatchSettings.ScoreLimit;
         _teamManager = new TeamManager();
         _scoreManager = new ScoreManager(_scoreLimit);
         _matchTimer = new MatchTimer(_matchDuration);
@@ -116,6 +119,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     #region GameLoop Methods
     public void StartMatch() { _matchTimer.StartTimer(); }
     public void PauseMatch() { _matchTimer.PauseTimer(); }
+    /// <summary>Resumes from the pause menu — same transition as pressing Escape while paused.</summary>
+    public void RequestResume() { _stateMachine?.ChangeState(new PlayingState(_stateMachine)); }
     /// <summary>
     /// Stops the timer only. Does NOT call ChangeState — callers in Update and OnZoneScored do that.
     /// Keeping ChangeState out of here prevents infinite recursion when GameOverState.Enter() calls this.

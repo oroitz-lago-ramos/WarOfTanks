@@ -27,11 +27,21 @@ public class HealthSystem : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
+        // Apply the player-configured spec (default matches the prefab, so unchanged unless edited).
+        _maxHealth = MatchSettings.TankMaxHealth;
         _currentHealth = _maxHealth;
     }
     #endregion
 
     #region Health Management Methods
+    /// <summary>Sets the maximum health and clamps current health into the new range.</summary>
+    public void SetMaxHealth(float value)
+    {
+        _maxHealth = Mathf.Max(1f, value);
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+        OnHealthChanged?.Invoke();
+    }
+
     public void TakeDamage(float damage)
     {
         if (IsDead) return;

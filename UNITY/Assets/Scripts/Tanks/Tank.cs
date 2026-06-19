@@ -62,7 +62,12 @@ public class Tank : MonoBehaviour, ISelectable, IDamageable, ICommandReceiver, I
         _navigationStrategy = GetComponent<NavigationStrategy>();
         _healthSystem = GetComponent<HealthSystem>();
         _navigationGrid = FindObjectOfType<NavigationGrid>();
+        // Apply the player-configured spec (default matches the prefab, so unchanged unless edited).
+        _respawnDelay = MatchSettings.RespawnDelay;
     }
+
+    /// <summary>Sets the respawn delay (seconds) used after the tank is destroyed.</summary>
+    public void SetRespawnDelay(float value) => _respawnDelay = Mathf.Max(0f, value);
     private void Start()
     {
         _healthSystem.OnDeath += Die;

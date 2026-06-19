@@ -30,7 +30,14 @@ public class TurretController : MonoBehaviour
     private void Awake()
     {
         _currentTank = GetComponentInParent<Tank>();
+        // Apply the player-configured spec (default matches the prefab, so unchanged unless edited).
+        _fireRate = MatchSettings.FireRate;
     }
+    #endregion
+
+    #region Configuration
+    /// <summary>Sets the fire rate (shots per second).</summary>
+    public void SetFireRate(float value) => _fireRate = Mathf.Max(0.01f, value);
     #endregion
 
     #region Public Methods
