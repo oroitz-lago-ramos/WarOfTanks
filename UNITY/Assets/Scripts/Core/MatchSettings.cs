@@ -27,51 +27,56 @@ public static class MatchSettings
     public const int DefaultScoreLimit = 100;
     public const float DefaultMasterVolume = 1f;
 
+    private const float MinimumTankMaxHealth = 1f;
+    private const float MinimumFireRate = 0.01f;
+    private const float MinimumExplosionRadius = 0.01f;
+    private const int MinimumScoreLimit = 1;
+
     public static float TankMaxHealth
     {
-        get => PlayerPrefs.GetFloat(KeyTankMaxHealth, DefaultTankMaxHealth);
-        set => PlayerPrefs.SetFloat(KeyTankMaxHealth, value);
+        get => Mathf.Max(MinimumTankMaxHealth, PlayerPrefs.GetFloat(KeyTankMaxHealth, DefaultTankMaxHealth));
+        set => PlayerPrefs.SetFloat(KeyTankMaxHealth, Mathf.Max(MinimumTankMaxHealth, value));
     }
 
     public static float FireRate
     {
-        get => PlayerPrefs.GetFloat(KeyFireRate, DefaultFireRate);
-        set => PlayerPrefs.SetFloat(KeyFireRate, value);
+        get => Mathf.Max(MinimumFireRate, PlayerPrefs.GetFloat(KeyFireRate, DefaultFireRate));
+        set => PlayerPrefs.SetFloat(KeyFireRate, Mathf.Max(MinimumFireRate, value));
     }
 
     public static float RespawnDelay
     {
-        get => PlayerPrefs.GetFloat(KeyRespawnDelay, DefaultRespawnDelay);
-        set => PlayerPrefs.SetFloat(KeyRespawnDelay, value);
+        get => Mathf.Max(0f, PlayerPrefs.GetFloat(KeyRespawnDelay, DefaultRespawnDelay));
+        set => PlayerPrefs.SetFloat(KeyRespawnDelay, Mathf.Max(0f, value));
     }
 
     public static float BulletDamage
     {
-        get => PlayerPrefs.GetFloat(KeyBulletDamage, DefaultBulletDamage);
-        set => PlayerPrefs.SetFloat(KeyBulletDamage, value);
+        get => Mathf.Max(0f, PlayerPrefs.GetFloat(KeyBulletDamage, DefaultBulletDamage));
+        set => PlayerPrefs.SetFloat(KeyBulletDamage, Mathf.Max(0f, value));
     }
 
     public static float ExplosionRadius
     {
-        get => PlayerPrefs.GetFloat(KeyExplosionRadius, DefaultExplosionRadius);
-        set => PlayerPrefs.SetFloat(KeyExplosionRadius, value);
+        get => Mathf.Max(MinimumExplosionRadius, PlayerPrefs.GetFloat(KeyExplosionRadius, DefaultExplosionRadius));
+        set => PlayerPrefs.SetFloat(KeyExplosionRadius, Mathf.Max(MinimumExplosionRadius, value));
     }
 
     public static float MatchDuration
     {
-        get => PlayerPrefs.GetFloat(KeyMatchDuration, DefaultMatchDuration);
-        set => PlayerPrefs.SetFloat(KeyMatchDuration, value);
+        get => Mathf.Max(0f, PlayerPrefs.GetFloat(KeyMatchDuration, DefaultMatchDuration));
+        set => PlayerPrefs.SetFloat(KeyMatchDuration, Mathf.Max(0f, value));
     }
 
     public static int ScoreLimit
     {
-        get => PlayerPrefs.GetInt(KeyScoreLimit, DefaultScoreLimit);
-        set => PlayerPrefs.SetInt(KeyScoreLimit, value);
+        get => Mathf.Max(MinimumScoreLimit, PlayerPrefs.GetInt(KeyScoreLimit, DefaultScoreLimit));
+        set => PlayerPrefs.SetInt(KeyScoreLimit, Mathf.Max(MinimumScoreLimit, value));
     }
 
     public static float MasterVolume
     {
-        get => PlayerPrefs.GetFloat(KeyMasterVolume, DefaultMasterVolume);
+        get => Mathf.Clamp01(PlayerPrefs.GetFloat(KeyMasterVolume, DefaultMasterVolume));
         set => PlayerPrefs.SetFloat(KeyMasterVolume, Mathf.Clamp01(value));
     }
 
