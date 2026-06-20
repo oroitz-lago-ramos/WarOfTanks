@@ -137,3 +137,4 @@ MonoBehaviour:
   _damage: 10
   _bulletSpeed: 10
   _falloffDistance: 20
+  _explosionVfx: {fileID: 7711223344556677001, guid: ecb62c9c55af41beaa91502a3fb679ec, type: 3}
