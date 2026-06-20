@@ -2,15 +2,21 @@ package middleware
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-// CORS allows the configured frontend origin to call the API with credentials.
+// CORS allows the configured frontend origin(s) to call the API with credentials.
+// frontendOrigin may be a comma-separated list (e.g. dev + docker ports).
 func CORS(frontendOrigin string) gin.HandlerFunc {
 	allowedOrigins := map[string]bool{
-		frontendOrigin:          true,
 		"http://127.0.0.1:5173": true,
+	}
+	for _, o := range strings.Split(frontendOrigin, ",") {
+		if o = strings.TrimSpace(o); o != "" {
+			allowedOrigins[o] = true
+		}
 	}
 
 	return func(c *gin.Context) {
