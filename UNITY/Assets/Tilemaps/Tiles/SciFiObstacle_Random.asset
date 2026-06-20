@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8275a3ccc460a48e7abe6e1057e2c91a, type: 3}
+  m_Name: SciFiObstacle_Random
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 4082693373532644978, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 3270944148771716542, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 5255413979962915307, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -3561992353528818236, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -6246872711644605899, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 8805928876492711158, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -2269855343014033024, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -5841448833635448913, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -1399859854043595468, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 6697623965816352127, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -899439364152552091, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 1729453929216198364, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: -7859186882313533320, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 6160521894921327996, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 5752103330195874178, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  - {fileID: 1188105798717213183, guid: d30e8eeb60a05453381c09fb6389c0b9, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  colliderType: 2
+  fitToCell: 0
+  cellSize: 1
