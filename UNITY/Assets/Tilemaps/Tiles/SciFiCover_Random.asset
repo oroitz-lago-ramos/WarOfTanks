@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8275a3ccc460a48e7abe6e1057e2c91a, type: 3}
+  m_Name: SciFiCover_Random
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: -8672492875515090611, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: -440265216986585298, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: -3329797605877071084, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 1659379247677110063, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 5267770382162232562, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 6061848204272762569, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: -331951088707490821, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 2058167143587201495, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 8992755922810490924, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: -1587590315468911447, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: -5730381916751746921, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 1237289396543549623, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 8367460295958001482, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 4421061042952102294, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 1597909698496661671, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  - {fileID: 7422728212490478832, guid: 0f38bd2a2025b42bb8715161c7cb6c6f, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  colliderType: 2
+  fitToCell: 0
+  cellSize: 1
