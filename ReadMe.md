@@ -113,6 +113,8 @@ npm run dev
 - ✅ [#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) Final UI Overhaul, Configurable Match Settings & Explosion Damage — cohesive MainMenu → Gameplay → Pause → GameOver flow; shared `MenuUIFactory` + editor generators producing all UI prefabs (MainMenu, GameHUD, PauseMenu, GameOver, ZoneCaptureBar); `MatchSettings` (`PlayerPrefs`-backed) exposing tank health, fire rate, respawn delay, bullet damage, explosion radius, match duration, score limit, and master volume, wired into the matching gameplay components with prefab-matching defaults; bullet damage switched from distance-travelled falloff to impact-centred area-of-effect explosions (`Physics2D.OverlapCircleAll`, friendly-fire ignored, per-tank dedupe); `FogOfWarManager` re-bootstraps on scene reload (merged to dev via PR #82)
 - ✅ [#83](https://github.com/oussema-fatnassi/WarOfTanks/issues/83) Final Visuals — Sprites, Procedural Background & Tank Art — replaces the flat colored prototype tilemaps with a sci-fi visual pass while keeping the gameplay data layer (tags/layers/colliders) intact; `BlueprintBackground` + `BlueprintGrid` shader draw the blueprint-grid background procedurally (no image); `TankAppearance` generates the tank body/cannon/glow in code with team tint and a WebGL-safe additive glow; `RandomFloorTile` picks a varied tile per cell via a stable spatial hash; `SciFiFloorTool` editor pipeline (slice → tile → apply) retiles all 5 terrain layers and `TransparencyBaker` bakes checkerboard backgrounds to alpha (merged to dev via PR #86)
 
+- ✅ [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) Unity — Post Match Result to Backend on Game Over — `MatchResultPayload` data class, `MatchResultSender` MonoBehaviour (fire-and-forget coroutine via `UnityWebRequest`), `AuthToken` static token store, `GameManager.SendMatchResult()` wired into `ShowGameOver()`; Bearer token header, 201/401/error handling; Docker Compose updated to MongoDB replica set (`--replSet rs0` + auto-init healthcheck) for transaction support
+
 ## In Progress / Remaining
 
 ### Sprint 3 — Navigation & Backend Foundation
@@ -125,7 +127,7 @@ npm run dev
 
 | #                                                               | Title                                                    | Owner   | Priority | Status      |
 | --------------------------------------------------------------- | -------------------------------------------------------- | ------- | -------- | ----------- |
-| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Oussema | High     | In progress |
+| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Kamelia | High     | ✅ Done     |
 | [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                                         | Oussema | High     | Not started |
 | [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) | Deploy Backend to Render                                 | Kamelia | Medium   | Not started |
 | [#36](https://github.com/oussema-fatnassi/WarOfTanks/issues/36) | Presentation Slides                                      | All     | High     | Not started |

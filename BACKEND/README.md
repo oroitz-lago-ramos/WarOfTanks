@@ -29,7 +29,7 @@ The API will be available at `http://localhost:8080`.
 
 | Variable             | Description                                          |
 | -------------------- | ---------------------------------------------------- |
-| `MONGODB_URI`        | MongoDB connection string (`mongodb://mongo:27017` in Docker) |
+| `MONGODB_URI`        | MongoDB connection string (`mongodb://mongo:27017/?replicaSet=rs0` in Docker) |
 | `MONGODB_DB_NAME`    | Database name (default: `waroftanks`)                |
 | `JWT_SECRET`         | Secret key for signing access tokens                 |
 | `JWT_REFRESH_SECRET` | Secret key for signing refresh tokens                |
