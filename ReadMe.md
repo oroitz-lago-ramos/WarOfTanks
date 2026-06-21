@@ -79,7 +79,7 @@ npm run dev
 - ✅ [#11](https://github.com/oussema-fatnassi/WarOfTanks/issues/11) RTS Camera
 - ✅ [#12](https://github.com/oussema-fatnassi/WarOfTanks/issues/12) Generic State Machine System
 - ✅ [#29](https://github.com/oussema-fatnassi/WarOfTanks/issues/29) Frontend Project Setup — Vite + React + TypeScript scaffolded
-- ✅ [#35](https://github.com/oussema-fatnassi/WarOfTanks/issues/35) Technical Note — Figma mockups remaining (see #47)
+- ✅ [#35](https://github.com/oussema-fatnassi/WarOfTanks/issues/35) Technical Note — UML, ERD, tech justification, diagrams (Figma mockups delivered in [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47))
 
 ### Sprint 3 — Navigation & Backend Foundation
 
@@ -114,6 +114,8 @@ npm run dev
 - ✅ [#83](https://github.com/oussema-fatnassi/WarOfTanks/issues/83) Final Visuals — Sprites, Procedural Background & Tank Art — replaces the flat colored prototype tilemaps with a sci-fi visual pass while keeping the gameplay data layer (tags/layers/colliders) intact; `BlueprintBackground` + `BlueprintGrid` shader draw the blueprint-grid background procedurally (no image); `TankAppearance` generates the tank body/cannon/glow in code with team tint and a WebGL-safe additive glow; `RandomFloorTile` picks a varied tile per cell via a stable spatial hash; `SciFiFloorTool` editor pipeline (slice → tile → apply) retiles all 5 terrain layers and `TransparencyBaker` bakes checkerboard backgrounds to alpha (merged to dev via PR #86)
 
 - ✅ [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) Unity — Post Match Result to Backend on Game Over — `MatchResultPayload` data class, `MatchResultSender` MonoBehaviour (fire-and-forget coroutine via `UnityWebRequest`), `AuthToken` static token store, `GameManager.SendMatchResult()` wired into `ShowGameOver()`; Bearer token header, 201/401/error handling; Docker Compose updated to MongoDB replica set (`--replSet rs0` + auto-init healthcheck) for transaction support
+- ✅ [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) Deploy Backend to Render — `render.yaml` Blueprint (Docker web service, `healthCheckPath /health`, auto-deploy from `main` on `checksPass`, secrets via `sync: false` / `generateValue: true`); root `GET /health` endpoint; CORS generalized to a comma-separated `ALLOWED_ORIGINS` allow-list with `FRONTEND_ORIGIN`/local fallbacks; `JWT_REFRESH_SECRET` now required and `PORT` defaulted; frontend `vercel.json` (SPA rewrites) + `DEPLOYMENT.md` guide (merged to dev via PR #88 — Render/Atlas dashboard setup pending)
+- ✅ [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47) UI Mockups - Figma (Zoning, Wireframe, Hi-fi, Prototype) — Figma design deliverables completed
 
 ## In Progress / Remaining
 
@@ -125,14 +127,11 @@ npm run dev
 
 ### Sprint 5 — Integration & Delivery
 
-| #                                                               | Title                                                    | Owner   | Priority | Status      |
-| --------------------------------------------------------------- | -------------------------------------------------------- | ------- | -------- | ----------- |
-| [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | Unity — Post Match Result to Backend on Game Over        | Kamelia | High     | ✅ Done     |
-| [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                                         | Oussema | High     | Not started |
-| [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) | Deploy Backend to Render                                 | Kamelia | Medium   | Not started |
-| [#36](https://github.com/oussema-fatnassi/WarOfTanks/issues/36) | Presentation Slides                                      | All     | High     | Not started |
-| [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47) | UI Mockups - Figma (Zoning, Wireframe, Hi-fi, Prototype) | Oussema | High     | Not started |
-| [#66](https://github.com/oussema-fatnassi/WarOfTanks/issues/66) | Refactor: GameManager SOLID improvements                 | Oussema | Low      | Not started |
+| #                                                               | Title                                    | Owner   | Priority | Status      |
+| --------------------------------------------------------------- | ---------------------------------------- | ------- | -------- | ----------- |
+| [#32](https://github.com/oussema-fatnassi/WarOfTanks/issues/32) | WebGL Game Embed                         | Oussema | High     | In progress |
+| [#36](https://github.com/oussema-fatnassi/WarOfTanks/issues/36) | Presentation Slides                      | All     | High     | Not started |
+| [#66](https://github.com/oussema-fatnassi/WarOfTanks/issues/66) | Refactor: GameManager SOLID improvements | Oussema | Low      | Not started |
 
 ## Known Bugs & Issues
 
@@ -151,4 +150,5 @@ Architecture diagrams are live in `docs/`:
 - UML Class Diagrams — `docs/uml/` ([#1](https://github.com/oussema-fatnassi/WarOfTanks/issues/1) ✅)
 - ERD (MongoDB Schema) — `docs/erd/` ([#2](https://github.com/oussema-fatnassi/WarOfTanks/issues/2) ✅)
 - State Machine Diagrams — `docs/state-machines/` ([#3](https://github.com/oussema-fatnassi/WarOfTanks/issues/3) ✅)
-- Technology Justification — `docs/technical-note/` ([#35](https://github.com/oussema-fatnassi/WarOfTanks/issues/35) — Figma mockups remaining in [#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47))
+- Technology Justification — `docs/technical-note/` ([#35](https://github.com/oussema-fatnassi/WarOfTanks/issues/35) ✅)
+- UI Mockups (Figma) — Zoning, wireframe, hi-fi, prototype ([#47](https://github.com/oussema-fatnassi/WarOfTanks/issues/47) ✅)

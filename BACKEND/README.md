@@ -33,10 +33,12 @@ The API will be available at `http://localhost:8080`.
 | `MONGODB_DB_NAME`    | Database name (default: `waroftanks`)                |
 | `JWT_SECRET`         | Secret key for signing access tokens                 |
 | `JWT_REFRESH_SECRET` | Secret key for signing refresh tokens                |
-| `PORT`               | Server port (default: `8080`)                        |
-| `FRONTEND_ORIGIN`    | Frontend URL allowed by CORS (`http://localhost:3000` in Docker) |
+| `PORT`               | Server port (default: `8080`; leave UNSET on Render — it injects PORT) |
+| `ALLOWED_ORIGINS`    | Comma-separated browser origins allowed by CORS (e.g. `http://localhost:5173,https://war-of-tanks.vercel.app`) |
+| `FRONTEND_ORIGIN`    | Single-origin CORS fallback (`http://localhost:3000` in Docker) |
+| `APP_ENV`            | `development` locally / `production` on Render (Secure + SameSite=None refresh cookie) |
 
-Create a `.env` file in `BACKEND/` with these values before running.
+Create a `.env` file in `BACKEND/` with these values before running. On Render, set all secrets in the dashboard (never in code) — see [`DEPLOYMENT.md`](../DEPLOYMENT.md).
 
 ## API Endpoints
 
@@ -44,6 +46,7 @@ Create a `.env` file in `BACKEND/` with these values before running.
 
 | Method | Route                   | Description                                          | Status  |
 | ------ | ----------------------- | ---------------------------------------------------- | ------- |
+| GET    | `/health`               | Health check (used by Render & uptime probes)        | ✅ Live |
 | POST   | `/api/v1/auth/register` | Register a new player                                | ✅ Live |
 | POST   | `/api/v1/auth/login`    | Login and receive JWT tokens                         | ✅ Live |
 | POST   | `/api/v1/auth/refresh`  | Refresh access token via HttpOnly cookie             | ✅ Live |
@@ -88,8 +91,10 @@ The CI pipeline starts MongoDB 7 with a single-node replica set before running `
 | [#28](https://github.com/oussema-fatnassi/WarOfTanks/issues/28) | Backend Unit Tests & CI Integration                                | ✅ Done     |
 | [#5](https://github.com/oussema-fatnassi/WarOfTanks/issues/5)   | GitHub Actions - Backend CI                                        | ✅ Done     |
 | [#33](https://github.com/oussema-fatnassi/WarOfTanks/issues/33) | Docker Compose - Full Stack                                        | ✅ Done     |
+| [#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) | Deploy Backend to Render                                           | ✅ Done     |
 
 ## Architecture Notes
 
 - MongoDB schema (ERD) committed to `docs/erd/` ([#2](https://github.com/oussema-fatnassi/WarOfTanks/issues/2) ✅)
+- Deployment: `render.yaml` Blueprint deploys the Dockerized API to Render (health check at `/health`, auto-deploy from `main`, secrets set in the Render dashboard). CORS uses a comma-separated `ALLOWED_ORIGINS` allow-list. Full guide in [`DEPLOYMENT.md`](../DEPLOYMENT.md) ([#34](https://github.com/oussema-fatnassi/WarOfTanks/issues/34) ✅)
 - Naming conventions: see `docs/naming-conventions.md` in the root repo.
