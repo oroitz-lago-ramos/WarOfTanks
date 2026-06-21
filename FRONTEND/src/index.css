@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+/* Design tokens — extracted from the War of Tanks hi-fidelity Figma.
+   Semantic names so components never hardcode hex. */
+@theme {
+  --font-sans: 'Inter Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+
+  /* Surfaces */
+  --color-bg: #0e1116; /* page background */
+  --color-frame: #14181f; /* screen-frame / screen-label background */
+  --color-panel: #161b22; /* cards & panels */
+  --color-raised: #1d242d; /* active nav pill, avatar */
+
+  /* Lines */
+  --color-line: #2a313b; /* hairline borders */
+  --color-line-strong: #3a424d; /* avatar / emphasised border */
+
+  /* Text */
+  --color-fg: #e7ecef; /* primary */
+  --color-muted: #98a1ad; /* secondary / body */
+  --color-dim: #6b7280; /* labels / eyebrows */
+
+  /* Accents */
+  --color-win: #5ebc7b; /* green — primary accent / win / CTA */
+  --color-loss: #ee6951; /* red — loss / enemy / danger */
+  --color-gold: #d8a23a; /* leaderboard top-3 rank */
+  --color-on-accent: #0a0d10; /* text on a green button */
+
+  /* Radius */
+  --radius-card: 4px;
+  --radius-pill: 3px;
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+}

@@ -1,0 +1,59 @@
+name: Backend CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [dev, main]
+
+env:
+  # Forward-compatibility flag: silences deprecation warnings on GitHub Actions
+  # runners that upgraded to Node 24. Remove once actions/* officially drop Node 20.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  test:
+    name: Go Tests
+    runs-on: ubuntu-latest
+
+    env:
+      MONGODB_TEST_URI: mongodb://localhost:27017/?replicaSet=rs0
+      JWT_SECRET: ci-test-secret
+      JWT_REFRESH_SECRET: ci-test-refresh-secret
+      PORT: 8080
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start MongoDB replica set
+        run: |
+          docker run -d --name mongodb -p 27017:27017 mongo:7 mongod --replSet rs0 --bind_ip_all
+          until docker exec mongodb mongosh --quiet --eval "db.adminCommand('ping')" 2>/dev/null; do sleep 2; done
+          docker exec mongodb mongosh --eval "rs.initiate({_id:'rs0',members:[{_id:0,host:'localhost:27017'}]})"
+          until docker exec mongodb mongosh --quiet --eval "db.hello().isWritablePrimary" 2>/dev/null | grep -q true; do sleep 2; done
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache-dependency-path: BACKEND/go.sum
+
+      - name: Install dependencies
+        run: go mod download
+        working-directory: BACKEND
+
+      - name: Run go vet
+        run: go vet ./...
+        working-directory: BACKEND
+
+      - name: Run tests
+        run: go test ./... -v -race -coverprofile=coverage.out
+        working-directory: BACKEND
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: BACKEND/coverage.out
+          if-no-files-found: ignore

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8275a3ccc460a48e7abe6e1057e2c91a, type: 3}
+  m_Name: SciFiHazard_Random
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: -8895730316036946104, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -516296884751929351, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -5019322811272377617, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 4933635135655114419, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 8710690401712923830, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -701806135821368206, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -2913056772524752577, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 1300111497133761544, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -1507941471237750701, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 414582825120513995, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 7326793282194599327, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -6849291912679004554, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -8880067069615976010, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 6788614619637142114, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 1556992702730610030, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 394603342649975063, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -681285016407555080, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 7586978713293189383, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 1331900274531930403, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 8745951332696413315, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -5483188202954214664, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 289513136725276940, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -2025737053779458250, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: -56420123308888164, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  - {fileID: 809631533557176675, guid: a39f405e2b9164110abaf1ba395f999f, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  colliderType: 2
+  fitToCell: 0
+  cellSize: 1

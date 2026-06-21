@@ -1,0 +1,58 @@
+services:
+  mongo:
+    image: mongo:7
+    command: ["--replSet", "rs0"]
+    ports:
+      - "27017:27017"   # expose to host so MongoDB Compass can connect
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - waroftanks_network
+    healthcheck:
+      test: >
+        mongosh --eval "
+          try { rs.status().ok }
+          catch(e) { rs.initiate({_id:'rs0', members:[{_id:0, host:'mongo:27017'}]}); }
+        "
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build: ./BACKEND
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./BACKEND/.env
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - waroftanks_network
+
+  frontend:
+    build:
+      context: ./FRONTEND
+      args:
+        VITE_API_URL: http://localhost:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - waroftanks_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  waroftanks_network:
