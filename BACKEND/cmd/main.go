@@ -55,7 +55,12 @@ func main() {
 
 	// Initialize Gin router
 	r := gin.Default()
-	r.Use(middleware.CORS(cfg.FrontendOrigin))
+	r.Use(middleware.CORS(cfg.AllowedOrigins))
+
+	// Root health check (used by Render's health check and uptime probes).
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok"})
+	})
 
 	// Route groups
 	api := r.Group("/api/v1")
