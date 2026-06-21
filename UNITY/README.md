@@ -36,7 +36,7 @@ UNITY/
     │   │   └── DetectionResult.cs     # Per-target detection data (target, distance, angle, isInLineOfSight)
     │   ├── Background/        # BlueprintBackground — procedural code-drawn grid background (no image)
     │   ├── Commands/          # ICommand implementations (Move, Attack, AttackZone, Stop)
-    │   ├── Core/              # MatchSettings — PlayerPrefs-backed player-configurable match specs
+    │   ├── Core/              # AuthToken, MatchResultPayload, MatchResultSender, MatchSettings
     │   ├── Enums/             # ETankTeam, ETankRole, EPathfinderType, EStrategicOrder
     │   ├── Fog/               # WarOfTanks.Fog — FogOfWarManager, FogVisibility, FogOfWarOverlay (WebGL-safe enemy concealment)
     │   ├── GameStates/        # GameStateMachine, PlayingState, PausedState, GameOverState
@@ -83,6 +83,7 @@ UNITY/
 | WebGL Build (GitHub Actions) | [#7](https://github.com/oussema-fatnassi/WarOfTanks/issues/7) | ✅ Done (merged to dev — PR #79) |
 | Final UI, Configurable Match Settings & Explosion Damage | [#80](https://github.com/oussema-fatnassi/WarOfTanks/issues/80) | ✅ Done (merged to dev — PR #82) |
 | Final Visuals - Sprites, Procedural Background & Tank Art | [#83](https://github.com/oussema-fatnassi/WarOfTanks/issues/83) | ✅ Done (merged to dev — PR #86) |
+| Post Match Result to Backend on Game Over | [#73](https://github.com/oussema-fatnassi/WarOfTanks/issues/73) | ✅ Done |
 
 ## Architecture Notes
 
