@@ -81,6 +81,27 @@ After deploy, record the public URLs in `ReadMe.md`:
 - API: `https://<your-app>.onrender.com`
 - App: `https://<your-app>.vercel.app`
 
+## 6. Publish and deploy the Unity WebGL build
+
+The `WebGL Build` GitHub workflow publishes every successful `main` build as
+the `waroftanks-webgl-build.tar.gz` asset of a GitHub Release. Vercel downloads
+the latest release into `FRONTEND/public/UnityBuild` before building the site.
+
+To redeploy Vercel only after the Unity release is ready:
+
+1. In Vercel, open the frontend project → **Settings → Git → Deploy Hooks**.
+2. Create a hook named `Unity WebGL release` for branch `main`.
+3. Copy the generated hook URL.
+4. In GitHub, open the repository → **Settings → Secrets and variables →
+   Actions → New repository secret**.
+5. Name the secret `VERCEL_DEPLOY_HOOK_URL` and paste the hook URL.
+6. Run **Actions → WebGL Build → Run workflow** on `main`, or merge a Unity
+   change into `main`.
+7. Confirm the workflow publishes a GitHub Release and then triggers a Vercel
+   deployment.
+8. Open `/play` and confirm `/UnityBuild/index.html` returns the Unity page
+   instead of the React application.
+
 ## Checklist (issue #34)
 - [ ] Atlas M0 cluster created, `0.0.0.0/0` allowed
 - [ ] Backend deployed on Render via Blueprint, `/health` returns 200
@@ -90,3 +111,6 @@ After deploy, record the public URLs in `ReadMe.md`:
 - [ ] Frontend deployed on Vercel with `VITE_API_URL` → Render
 - [ ] End-to-end login works from the Vercel site
 - [ ] Public URLs documented in README
+- [ ] `VERCEL_DEPLOY_HOOK_URL` configured in GitHub Actions secrets
+- [ ] Latest WebGL workflow published a GitHub Release asset
+- [ ] `/play` loads `/UnityBuild/index.html` from the Vercel deployment

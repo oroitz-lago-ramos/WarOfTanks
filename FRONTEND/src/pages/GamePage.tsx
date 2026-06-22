@@ -10,7 +10,7 @@ import Button from '../components/ui/Button'
 import Avatar from '../components/ui/Avatar'
 import ResultBadge from '../components/ui/ResultBadge'
 
-const UNITY_BUILD_URL = '/UnityBuild/UnityBuild/index.html'
+const UNITY_BUILD_URL = '/UnityBuild/index.html'
 
 /** Hosts the Unity WebGL build inside the tactical viewport. */
 const GameViewport = () => (
@@ -20,7 +20,6 @@ const GameViewport = () => (
       src={UNITY_BUILD_URL}
       className="absolute inset-0 h-full w-full border-0"
       allow="fullscreen; autoplay; gamepad"
-      allowFullScreen
     />
   </div>
 )

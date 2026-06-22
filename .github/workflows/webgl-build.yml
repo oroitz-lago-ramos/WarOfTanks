@@ -17,6 +17,9 @@ env:
   # Forward-compatibility flag used by the existing workflows in this repo.
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
+permissions:
+  contents: write
+
 jobs:
   build-webgl:
     name: Build Unity WebGL
@@ -67,3 +70,38 @@ jobs:
           path: build
           if-no-files-found: error
           retention-days: 14
+
+      - name: Package WebGL release asset
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          BUILD_INDEX="$(find build -maxdepth 4 -name index.html -print -quit)"
+          BUILD_DIR="$(dirname "$BUILD_INDEX")"
+          tar -C "$BUILD_DIR" -czf waroftanks-webgl-build.tar.gz .
+
+      - name: Publish WebGL GitHub Release
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="webgl-${GITHUB_SHA}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" waroftanks-webgl-build.tar.gz --clobber
+            gh release edit "$TAG" --latest
+          else
+            gh release create "$TAG" waroftanks-webgl-build.tar.gz \
+              --target "$GITHUB_SHA" \
+              --title "WebGL build ${GITHUB_SHA::7}" \
+              --notes "Automated Unity WebGL build from main at commit $GITHUB_SHA." \
+              --latest
+          fi
+
+      - name: Trigger Vercel deployment
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "::notice::VERCEL_DEPLOY_HOOK_URL is not configured; skipping Vercel deployment."
+            exit 0
+          fi
+          curl --fail --silent --show-error --request POST "$VERCEL_DEPLOY_HOOK_URL"

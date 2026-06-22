@@ -92,6 +92,9 @@ FRONTEND/
 ## Architecture Notes
 
 - Auth uses JWT — access token stored in memory, refresh token in an httpOnly cookie.
-- The Unity WebGL build is embedded on the `/play` route via the Unity loader. Build assets go in `public/unity-build/`.
+- The Unity WebGL build is embedded on `/play` from `/UnityBuild/index.html`.
+  On Vercel, `npm run prebuild` downloads and extracts the latest
+  `waroftanks-webgl-build.tar.gz` GitHub Release asset into
+  `public/UnityBuild/`; generated build files remain ignored by Git.
 - JWT is passed from React into the Unity runtime via the Unity JSLib bridge for authenticated API calls.
 - Naming conventions: see `docs/naming-conventions.md` in the root repo.
