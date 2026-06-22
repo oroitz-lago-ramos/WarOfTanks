@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fetch:unity": "node scripts/fetch-unity-build.mjs",
+    "prebuild": "npm run fetch:unity",
     "build": "tsc -b && vite build",
     "lint": "eslint . --max-warnings 0",
     "preview": "vite preview",
