@@ -46,7 +46,7 @@ const LoginPage = () => {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout coverImage="/CoverImage.png">
       <AuthHeading
         subtitle="Pick up your tank crew where you left them."
         title="Sign in"

@@ -99,7 +99,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout coverImage="/CoverImage.png">
       <AuthHeading
         subtitle="One callsign, one tank crew."
         title="Create account"

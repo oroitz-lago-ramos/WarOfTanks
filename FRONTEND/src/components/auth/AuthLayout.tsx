@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 interface AuthLayoutProps {
   children: ReactNode
+  coverImage?: string
 }
 
 const AuthBrand = () => (
@@ -17,11 +18,22 @@ const AuthBrand = () => (
   </div>
 )
 
-const AuthHero = () => (
+const AuthHero = ({ coverImage }: { coverImage?: string }) => (
   <section
     aria-label="War Of Tanks tactical briefing"
     className="relative min-h-[220px] overflow-hidden border-b border-[#2a313b] bg-[#0e1116] md:min-h-svh md:border-r md:border-b-0"
   >
+    {coverImage && (
+      <>
+        <img
+          src={coverImage}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,13,0.08)_35%,rgba(5,8,13,0.92)_100%)]" />
+      </>
+    )}
     <div className="absolute bottom-5 left-6 z-10 text-left md:bottom-12 md:left-12">
       <p className="text-[22px] leading-[1.15] font-semibold tracking-normal text-[#e7ecef] md:text-[28px]">
         Capture the centre.
@@ -33,10 +45,10 @@ const AuthHero = () => (
   </section>
 )
 
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = ({ children, coverImage }: AuthLayoutProps) => {
   return (
     <main className="grid min-h-svh grid-cols-1 overflow-hidden bg-[#0e1116] text-[#e7ecef] md:grid-cols-2">
-      <AuthHero />
+      <AuthHero coverImage={coverImage} />
 
       <section className="grid min-h-0 place-items-center bg-[#0e1116] px-5 py-9 md:min-h-svh md:p-12">
         <div className="w-full max-w-[380px] text-left">
